@@ -1,12 +1,14 @@
 import React from 'react';
-import './App.css';
+import CarsList from '../containers/CarsList';
+import '../App.css';
 
-function App() {
+const App = () => {
+
   return (
     <div className="App">
-      
+      <CarsList />
     </div>
   );
-}
+};
 
 export default App;
