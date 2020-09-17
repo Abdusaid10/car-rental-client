@@ -12,7 +12,6 @@ const fetchCarsReducer = (state = initialState, action) => {
         ...state,
       };
     case FETCH_CARS_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         cars: action.payload,

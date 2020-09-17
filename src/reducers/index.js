@@ -4,7 +4,7 @@ import fetchCategoriesReducer from './fetchCategories';
 
 const reducer = combineReducers({
   carsList: fetchCarsReducer,
-  categories: fetchCategoriesReducer,
+  categoriesList: fetchCategoriesReducer,
 });
 
 export default reducer;

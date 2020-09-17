@@ -25,6 +25,10 @@ class AddCar extends Component {
       year: '',
       imgs: '',
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.mapDispatchToProps = this.mapDispatchToProps.bind(this);
   }
 
   handleChange(e) {
@@ -66,7 +70,10 @@ class AddCar extends Component {
         <span>
           Add a new car
         </span>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
+          <select onChange={this.handleChange}>
+
+          </select>
           <input
             type="text"
             name="model"
@@ -102,12 +109,9 @@ class AddCar extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addCarAction: car => {
-    dispatch(addCarAction(car));
-  },
-  fetchCars: () => {
-    dispatch(fetchCars());
-  },
+  addCarAction: car => dispatch(addCarAction(car)),
+  fetchCars: () => dispatch(fetchCars()),
+  fetchCategories: () => dispatch(fetchCategories),
 });
 
 AddCar.propTypes = {
