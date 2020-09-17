@@ -26,7 +26,6 @@ export const fetchCars = () => dispatch => {
   dispatch(fetchCarsRequest());
   getCars()
     .then(response => {
-      console.log('respo', response.data);
       dispatch(fetchCarsSuccess(response.data));
     })
     .catch(error => {
@@ -44,7 +43,7 @@ const fetchCategoriesSuccess = categories => ({
 });
 
 const fetchCategoriesFailure = error => ({
-  type: FETCH_CATEGORIES_SUCCESS,
+  type: FETCH_CATEGORIES_FAILURE,
   payload: error,
 });
 
@@ -52,6 +51,8 @@ export const fetchCategories = () => dispatch => {
   dispatch(fetchCategoriesRequest());
   getCategories()
     .then(response => {
+      // eslint-disable-next-line no-console
+      console.log('cats', response.data);
       dispatch(fetchCategoriesSuccess(response.data));
     })
     .catch(error => dispatch(fetchCategoriesFailure(error.message)));
