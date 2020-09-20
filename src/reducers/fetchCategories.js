@@ -12,7 +12,6 @@ const fetchCategoriesReducer = (state = initialState, action) => {
         ...state,
       };
     case FETCH_CATEGORIES_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         categories: action.payload,

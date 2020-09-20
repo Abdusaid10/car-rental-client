@@ -1,10 +1,9 @@
 import {
-  addCar, getCars, addCategory, getCategories, addManufacturer, getManufacturers,
+  addCar, getCars, addCategory, addManufacturer, getManufacturers,
 } from '../api-services/services';
 import {
   ADD_CAR_SUCCESS,
   ADD_CAR_FAILURE,
-  ADD_CATEGORY_SUCCESS,
   ADD_CATEGORY_FAILURE,
   ADD_MANUFACTURER_FAILURE,
   ADD_MANUFACTURER_SUCCESS,
@@ -31,21 +30,15 @@ export const addCarAction = car => dispatch => {
     });
 };
 
-const addCategorySuccess = category => ({
-  type: ADD_CATEGORY_SUCCESS,
-  payload: category,
-});
-
 const addCategoryFailure = error => ({
   type: ADD_CATEGORY_FAILURE,
   payload: error,
 });
 
 export const addCategoryAction = category => dispatch => {
-  dispatch(addCategorySuccess());
   addCategory(category)
     .then(() => {
-      dispatch(getCategories());
+      console.log('category created');
     })
     .catch(error => dispatch(addCategoryFailure(error)));
 };
