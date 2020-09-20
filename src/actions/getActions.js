@@ -1,4 +1,4 @@
-import { getCars, getCategories } from '../api-services/services';
+import { getCars, getCategories, getManufacturers } from '../api-services/services';
 import {
   FETCH_CARS_REQUEST,
   FETCH_CARS_SUCCESS,
@@ -6,6 +6,9 @@ import {
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
   FETCH_CATEGORIES_FAILURE,
+  FETCH_MANUFACTURERS_REQUEST,
+  FETCH_MANUFACTURERS_SUCCESS,
+  FETCH_MANUFACTURERS_FAILURE,
 } from './types';
 
 const fetchCarsRequest = () => ({
@@ -51,9 +54,30 @@ export const fetchCategories = () => dispatch => {
   dispatch(fetchCategoriesRequest());
   getCategories()
     .then(response => {
-      // eslint-disable-next-line no-console
-      console.log('cats', response.data);
       dispatch(fetchCategoriesSuccess(response.data));
     })
     .catch(error => dispatch(fetchCategoriesFailure(error.message)));
+};
+
+const fetchManufacturersRequest = () => ({
+  type: FETCH_MANUFACTURERS_REQUEST,
+});
+
+const fetchManufacturersSuccess = manufacturers => ({
+  type: FETCH_MANUFACTURERS_SUCCESS,
+  payload: manufacturers,
+});
+
+const fetchManufacturersFailure = error => ({
+  type: FETCH_MANUFACTURERS_FAILURE,
+  payload: error,
+});
+
+export const fetchManufacturers = () => dispatch => {
+  dispatch(fetchManufacturersRequest());
+  getManufacturers()
+    .then(response => {
+      dispatch(fetchManufacturersSuccess(response.data));
+    })
+    .catch(error => dispatch(fetchManufacturersFailure(error.message)));
 };

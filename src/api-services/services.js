@@ -10,7 +10,7 @@ export const getBookings = () => http.get('/bookings');
 
 export const addCar = car => http.post('/cars', car);
 
-export const addCategory = category => http.post('/category', category);
+export const addCategory = category => http.post('/categories', category);
 
 export const addManufacturer = manufacturer => http.post('/manufacturers', manufacturer);
 
