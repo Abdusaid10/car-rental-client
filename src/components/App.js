@@ -8,6 +8,7 @@ import Signup from '../containers/Signup';
 import AddCar from '../containers/admin/AddCar';
 import AddCategory from '../containers/admin/AddCategory';
 import AddManufacturer from '../containers/admin/AddManufacturer';
+import CarInfo from '../containers/CarInfo';
 import '../styles/App.css';
 import '../styles/form.css';
 
@@ -25,6 +26,9 @@ const App = () => (
       <Switch>
         <Route exact path="/">
           <CarsList />
+        </Route>
+        <Route exact path="/cars/:id">
+          <CarInfo />
         </Route>
         <Route exact path="/login">
           <Login />

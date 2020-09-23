@@ -1,6 +1,7 @@
 import http from '../constants/httpCommon';
 
 export const getCars = () => http.get('/cars');
+export const getCar = id => http.get(`/cars/${id}`);
 
 export const getCategories = () => http.get('/categories');
 

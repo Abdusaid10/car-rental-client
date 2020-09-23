@@ -1,8 +1,13 @@
-import { getCars, getCategories, getManufacturers } from '../api-services/services';
+import {
+  getCars, getCar, getCategories, getManufacturers,
+} from '../api-services/services';
 import {
   FETCH_CARS_REQUEST,
   FETCH_CARS_SUCCESS,
   FETCH_CARS_FAILURE,
+  FETCH_CAR_INFO_REQUEST,
+  FETCH_CAR_INFO_SUCCESS,
+  FETCH_CAR_INFO_FAILURE,
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
   FETCH_CATEGORIES_FAILURE,
@@ -35,6 +40,20 @@ export const fetchCars = () => dispatch => {
       dispatch(fetchCarsFailure(error.message));
     });
 };
+
+const fetchCarInfoRequest = () => ({
+  type: FETCH_CAR_INFO_REQUEST,
+});
+
+const fetchCarInfoSuccess = payload => ({
+  type: FETCH_CAR_INFO_SUCCESS,
+  payload,
+});
+
+const fetchCarInfoFailure = error => ({
+  type: FETCH_CAR_INFO_FAILURE,
+  payload: error,
+});
 
 const fetchCategoriesRequest = () => ({
   type: FETCH_CATEGORIES_REQUEST,
@@ -80,4 +99,16 @@ export const fetchManufacturers = () => dispatch => {
       dispatch(fetchManufacturersSuccess(response.data));
     })
     .catch(error => dispatch(fetchManufacturersFailure(error.message)));
+};
+
+export const fetchCarInfo = id => dispatch => {
+  dispatch(fetchCarInfoRequest());
+  getCar(id)
+    .then(response => {
+      dispatch(fetchCarInfoSuccess(response.data));
+      dispatch(fetchManufacturers());
+    })
+    .catch(error => {
+      dispatch(fetchCarInfoFailure(error.message));
+    });
 };
