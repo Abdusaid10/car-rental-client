@@ -7,13 +7,16 @@ const AddManufacturer = ({ addMaker }) => {
   const initialState = {
     name: '',
     about: '',
-    logo: null,
-    images: null,
   };
   const [data, setData] = useState(initialState);
+  const [imgs, setImages] = useState('');
   const {
-    name, about, logo, images,
+    name, about,
   } = data;
+
+  const {
+    images,
+  } = imgs;
 
   const handleChange = e => {
     setData({
@@ -23,43 +26,46 @@ const AddManufacturer = ({ addMaker }) => {
   };
 
   const onImageChange = e => {
-    setData({ [e.target.name]: e.target.files[0] });
+    console.log('image change', { [e.target.name]: e.target.files[0] });
+    setImages({ images: e.target.files[0] });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
+    // console.log('logo', logo);
+    console.log('image', images);
     console.log('maker', data);
-    const manufacturer = {
+    const maker = {
       name,
       about,
-      logo,
+      // logo,
       images,
     };
-    addMaker(manufacturer);
+    addMaker(maker);
     e.target.reset();
   };
 
   return (
     <div>
-      <form className="form-container" onSubmit={handleSubmit} onChange={handleChange}>
-        <input type="text" name="manufacturer" placeholder="Manufacturer" value={name} onChange={handleChange} />
-        <label htmlFor="logo">
+      <form className="form-container" onSubmit={handleSubmit}>
+        <input className="form-item" type="text" name="manufacturer" placeholder="Manufacturer" value={name} onChange={handleChange} />
+        {/* <label className="form-item" htmlFor="logo">
           Add logo
           <input type="file" name="logo" accept="image/*" multiple={false} onChange={onImageChange} />
-        </label>
-        <label htmlFor="images">
+        </label> */}
+        <label className="form-item" htmlFor="images">
           Add images
-          <input type="file" name="images" accept="image/*" multiple onChange={onImageChange} />
+          <input className="form-item" type="file" name="images" accept="image/*" onChange={onImageChange} />
         </label>
-        <textarea name="about" rows="4" cols="50" value={about} placeholder="Enter text here..." onChange={handleChange} />
-        <input type="submit" value="Add Manufacturer" />
+        <textarea className="form-item" name="about" rows="4" cols="50" value={about} placeholder="Enter text here..." onChange={handleChange} />
+        <input className="form-item" type="submit" value="Add Manufacturer" />
       </form>
     </div>
   );
 };
 
 const mapDispatchToProps = dispatch => ({
-  addMaker: ({ data }) => dispatch(addMaker(data)),
+  addMaker: maker => dispatch(addMaker(maker)),
 });
 
 AddManufacturer.propTypes = {
