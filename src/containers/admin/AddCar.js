@@ -13,15 +13,14 @@ const AddCar = ({
   addCarAction,
 }) => {
   const initialState = {
-    manufacturer_id: 3,
-    category_id: 1,
+    manufacturer_id: '',
+    category_id: '',
     model: '',
     color: '',
     status: 'Available',
     price: '',
     description: '',
     year: '',
-    images: '',
   };
 
   useEffect(() => {
@@ -30,6 +29,7 @@ const AddCar = ({
   }, []);
 
   const [data, setData] = useState(initialState);
+  const [img, setImage] = useState({ image: '' });
   const {
     manufacturer_id,
     category_id,
@@ -39,8 +39,8 @@ const AddCar = ({
     price,
     description,
     year,
-    images,
   } = data;
+  const { image } = img;
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -53,13 +53,15 @@ const AddCar = ({
     console.log('data', data);
   };
 
+  const onImageChange = e => {
+    setImage({
+      ...img,
+      [e.target.name]: e.target.files[0],
+    });
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('model', model);
-    console.log('manufacturerid', manufacturer_id);
-    console.log('cate', category_id);
-    console.log('status', status);
-
     const car = {
       manufacturer_id,
       category_id,
@@ -69,16 +71,10 @@ const AddCar = ({
       price,
       description,
       year,
-      images,
+      image,
     };
     addCarAction(car);
     e.target.reset();
-  };
-
-  // const handleSelectChange = e => e.target.value;
-
-  const onImageChange = e => {
-    setData({ [e.target.name]: e.target.files[0] });
   };
 
   return (
@@ -89,6 +85,7 @@ const AddCar = ({
       <form className="form-container" onSubmit={handleSubmit} onChange={handleChange}>
         {/* <CategoriesList categories={categories} /> */}
         <select className="form-item" name="manufacturer_id">
+          <option selected disabled>Manufacturer</option>
           {
             manufacturers.map(man => (
               <option value={man.id} key={man.id}>{man.manufacturer}</option>
@@ -97,6 +94,7 @@ const AddCar = ({
         </select>
         {/* <ManufacturersList manufacturers={manufacturers} /> */}
         <select className="form-item" name="category_id">
+          <option selected disabled>Category</option>
           {
             categories.map(cat => (
               <option value={cat.id} key={cat.id}>{cat.category}</option>
@@ -137,7 +135,7 @@ const AddCar = ({
         </select>
         <label className="form-item" htmlFor="images">
           Add images
-          <input type="file" name="images" accept="image/*" value={images} multiple onChange={onImageChange} />
+          <input type="file" name="image" accept="image/*" multiple onChange={onImageChange} />
         </label>
         <textarea name="description" rows="4" cols="50" value={description} placeholder="Enter text here..." onChange={handleChange} />
         <input className="form-item" type="submit" value="Add Car" />

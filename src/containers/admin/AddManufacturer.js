@@ -39,17 +39,9 @@ const AddManufacturer = ({ addMaker }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // console.log('logo', logo);
+
     console.log('image', image);
 
-    const formData = new FormData();
-    // formData.append('name', name);
-    // formData.append('about', about);
-    // formData.append('image', image);
-    // eslint-disable-next-line no-restricted-syntax
-    // for (const i of formData.entries()) {
-    //   console.log(`${i[0]}: ${i[1]}`);
-    // }
     const maker = {
       manufacturer,
       about,
@@ -85,7 +77,6 @@ const mapDispatchToProps = dispatch => ({
 
 AddManufacturer.propTypes = {
   addMaker: PropTypes.func.isRequired,
-  // category: PropTypes.string.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(AddManufacturer);

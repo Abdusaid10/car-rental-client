@@ -23,7 +23,7 @@ export const addCarAction = car => dispatch => {
   dispatch(addCarSuccess());
   addCar(car)
     .then(() => {
-      console.log(`${car} added`);
+      console.log('Car added', car);
     })
     .catch(error => {
       dispatch(addCarFailure(error));
