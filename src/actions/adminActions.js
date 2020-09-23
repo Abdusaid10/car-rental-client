@@ -57,7 +57,7 @@ export const addManufacturerAction = manufacturer => dispatch => {
   dispatch(addManufacturerSuccess());
   addManufacturer(manufacturer)
     .then(() => {
-      console.log('manufacturer added');
+      console.log('manufacturer added', manufacturer);
       addManufacturerSuccess(manufacturer);
     })
     .catch(error => dispatch(addManufacturerFailure(error)));
