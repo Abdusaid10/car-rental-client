@@ -1,0 +1,17 @@
+.car-info-container, .entry-names, .entry-values {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.car-details-table {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.entry-names {
+
+}

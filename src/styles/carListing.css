@@ -1,0 +1,21 @@
+.car-listings {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.car-listing-info {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}
+
+.car-listing-items {
+  padding-left: 10px;
+}
+
+.car-img {
+  width: 480px;
+  height: 320px;
+}
