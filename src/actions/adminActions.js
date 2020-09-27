@@ -1,5 +1,5 @@
 import {
-  addCar, getCars, addCategory, addManufacturer, getManufacturers,
+  addCar, addCategory, addManufacturer,
 } from '../api-services/services';
 import {
   ADD_CAR_SUCCESS,

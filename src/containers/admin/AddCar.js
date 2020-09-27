@@ -49,8 +49,6 @@ const AddCar = ({
       ...data,
       [name]: value,
     });
-    console.log(name, value);
-    console.log('data', data);
   };
 
   const onImageChange = e => {
@@ -62,18 +60,17 @@ const AddCar = ({
 
   const handleSubmit = e => {
     e.preventDefault();
-    const car = {
-      manufacturer_id,
-      category_id,
-      model,
-      color,
-      status,
-      price,
-      description,
-      year,
-      image,
-    };
-    addCarAction(car);
+    const formData = new FormData();
+    formData.append('manufacturer_id', manufacturer_id);
+    formData.append('category_id', category_id);
+    formData.append('model', model);
+    formData.append('color', color);
+    formData.append('status', status);
+    formData.append('price', price);
+    formData.append('description', description);
+    formData.append('year', year);
+    formData.append('image', image);
+    addCarAction(formData);
     e.target.reset();
   };
 
@@ -83,7 +80,6 @@ const AddCar = ({
         Add a new car
       </span>
       <form className="form-container" onSubmit={handleSubmit} onChange={handleChange}>
-        {/* <CategoriesList categories={categories} /> */}
         <select className="form-item" name="manufacturer_id">
           <option selected disabled>Manufacturer</option>
           {
@@ -92,7 +88,6 @@ const AddCar = ({
             ))
           }
         </select>
-        {/* <ManufacturersList manufacturers={manufacturers} /> */}
         <select className="form-item" name="category_id">
           <option selected disabled>Category</option>
           {
@@ -152,7 +147,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addCarAction: car => dispatch(addCarAction(car)),
   fetchCars: () => dispatch(fetchCars()),
-  fetchCategories: () => dispatch(fetchCategories),
+  fetchCategories: () => dispatch(fetchCategories()),
   fetchManufacturers: () => dispatch(fetchManufacturers()),
 });
 

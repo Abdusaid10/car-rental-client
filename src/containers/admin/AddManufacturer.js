@@ -30,7 +30,6 @@ const AddManufacturer = ({ addMaker }) => {
   };
 
   const onImageChange = e => {
-    console.log('image change', { [e.target.name]: e.target.files[0] });
     setImage({
       ...img,
       [e.target.name]: e.target.files[0],
@@ -40,15 +39,12 @@ const AddManufacturer = ({ addMaker }) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    console.log('image', image);
-
-    const maker = {
-      manufacturer,
-      about,
-      logo,
-      image,
-    };
-    addMaker(maker);
+    const formData = new FormData();
+    formData.append('manufacturer', manufacturer);
+    formData.append('about', about);
+    formData.append('image', image);
+    formData.append('logo', logo);
+    addMaker(formData);
     e.target.reset();
   };
 

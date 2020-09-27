@@ -51,19 +51,7 @@ const mapDispatchToProps = dispatch => ({
 
 CarsList.propTypes = {
   cars: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      manufacturer_id: PropTypes.number,
-      category_id: PropTypes.number,
-      model: PropTypes.string,
-      status: PropTypes.string,
-      year: PropTypes.string,
-      images: PropTypes.arrayOf(
-        PropTypes.shape({
-          img: PropTypes.string,
-        }),
-      ),
-    }),
+    PropTypes.instanceOf(Object),
   ).isRequired,
   fetchCars: PropTypes.func.isRequired,
   categories: PropTypes.arrayOf(
