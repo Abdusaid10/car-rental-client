@@ -34,7 +34,7 @@ export const fetchCars = () => dispatch => {
   dispatch(fetchCarsRequest());
   getCars()
     .then(response => {
-      dispatch(fetchCarsSuccess(response.data));
+      dispatch(fetchCarsSuccess(response.data.cars));
     })
     .catch(error => {
       dispatch(fetchCarsFailure(error.message));
@@ -45,9 +45,9 @@ const fetchCarInfoRequest = () => ({
   type: FETCH_CAR_INFO_REQUEST,
 });
 
-const fetchCarInfoSuccess = payload => ({
+const fetchCarInfoSuccess = car => ({
   type: FETCH_CAR_INFO_SUCCESS,
-  payload,
+  payload: car,
 });
 
 const fetchCarInfoFailure = error => ({
@@ -96,7 +96,7 @@ export const fetchManufacturers = () => dispatch => {
   dispatch(fetchManufacturersRequest());
   getManufacturers()
     .then(response => {
-      dispatch(fetchManufacturersSuccess(response.data));
+      dispatch(fetchManufacturersSuccess(response.data.manufacturers));
     })
     .catch(error => dispatch(fetchManufacturersFailure(error.message)));
 };
@@ -106,6 +106,7 @@ export const fetchCarInfo = id => dispatch => {
   getCar(id)
     .then(response => {
       dispatch(fetchCarInfoSuccess(response.data));
+      dispatch(fetchCategories());
       dispatch(fetchManufacturers());
     })
     .catch(error => {

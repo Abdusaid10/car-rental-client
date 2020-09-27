@@ -15,17 +15,23 @@ const CarsList = ({
     fetchCategories();
     fetchManufacturers();
   }, []);
+
+  const isCars = true ? cars !== undefined : false;
   /* <Link to={`/cars/:${car.id}`} key={car}> */
+
   return (
     <div className="cars-list-container" key="carList">
       <CategoriesList key="categories" categories={categories} />
       <ManufacturersList key="manufacturers" manufacturers={manufacturers} />
       <div className="cars-wrapper" key="carsWrapper">
-        {
-          cars.map(car => (
+        { isCars
+          ? cars.map(car => (
             <Car key={car.id} car={car} />
-          ))
-        }
+          )) : (
+            <div className="cars-wrapper">
+              <span>No cars</span>
+            </div>
+          )}
       </div>
     </div>
   );
