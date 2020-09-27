@@ -19,4 +19,6 @@ export const signup = user => http.post('/signup', user);
 
 export const login = user => http.post('/login', user);
 
-export const loggedIn = () => http.get('logged_in');
+export const loggedIn = () => http.get('/logged_in');
+
+export const logout = () => http.get('/logout');

@@ -11,6 +11,8 @@ import AddManufacturer from '../containers/admin/AddManufacturer';
 import CarInfo from '../containers/CarInfo';
 import '../styles/App.css';
 import '../styles/form.css';
+import '../styles/carListing.css';
+import '../styles/carInfo.css';
 
 const App = () => (
   <div className="App">

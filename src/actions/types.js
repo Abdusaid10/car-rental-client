@@ -25,3 +25,16 @@ export const ADD_MANUFACTURER_FAILURE = 'ADD_MANUFACTURER_FAILURE';
 
 export const LOGIN_STATUS = 'LOGIN_STATUS';
 export const API_ERRORS = 'API_ERRORS';
+
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT = 'LOGOUT';
+
+export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
+
+export const SUCCESS = 'SUCCESS';
+export const ERROR = 'ERROR';
+export const CLEAR = 'CLEAR';
