@@ -1,34 +1,64 @@
 import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter, useParams } from 'react-router';
 import PropTypes from 'prop-types';
-import { fetchCarInfo, fetchManufacturers } from '../actions/getActions';
+import { fetchCarInfo } from '../actions/getActions';
 
-const CarInfo = ({ cars, match, manufacturers }) => {
-  const { params: { id } } = match;
-  const { data } = cars.car;
+const CarInfo = ({ car }) => {
+  const { id } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchCarInfo(id)(dispatch);
-    fetchManufacturers()(dispatch);
-  }, [id, dispatch]);
+    fetchCarInfo(parseInt(id, 10))(dispatch);
+  }, []);
 
-  const manufacturerName = () => {
-    manufacturers.filter(maker => (data.manufacturer_id === maker.id ? maker.manufacturer : false));
-  };
+  console.log('car obj', car);
+
+  const isCarId = true ? car.id === parseInt(id, 10) : false;
 
   return (
-    <div className="car-info">
+    <div className="car-info-container">
       {
-        data.id ? (
-          <div id="car-maker-model">
-            <span>
-              {manufacturerName}
-              {data.model}
-              {data.year}
-            </span>
-            <img src={data.image.url} alt={`${manufacturerName} ${data.model}`} />
+        isCarId ? (
+          <div id="car-info">
+            <h3>
+              <span>{car.manufacturer.manufacturer}</span>
+              <span>{car.model}</span>
+            </h3>
+            <img className="car-img" src={car.image_url} alt={`${car.manufacturer.manufacturer} ${car.model}`} />
+            <div className="car-info-details">
+              <h3>Details</h3>
+              <div className="car-details-table">
+                <div className="entry-names">
+                  <span>Manufacturer</span>
+                  <span>Model</span>
+                  <span>Color</span>
+                  <span>Status</span>
+                  <span>Price</span>
+                  <span>Year</span>
+                  <span>Category</span>
+                  <span>Horse Power</span>
+                  <span>Torque</span>
+                </div>
+                <div className="entry-values">
+                  <span>{car.manufacturer.manufacturer}</span>
+                  <span>{car.model}</span>
+                  <span>{car.color}</span>
+                  <span>{car.status}</span>
+                  <span>{car.price}</span>
+                  <span>{car.year}</span>
+                  <span>{car.category.category}</span>
+                  <span>-</span>
+                  <span>-</span>
+                </div>
+              </div>
+              <div className="description-wrapper">
+                <span>Description</span>
+                <p className="description">
+                  {car.description}
+                </p>
+              </div>
+            </div>
           </div>
         ) : (
           <span>Loading...</span>
@@ -38,19 +68,12 @@ const CarInfo = ({ cars, match, manufacturers }) => {
   );
 };
 
-const mapStateToProps = ({ cars, manufacturers }) => ({
-  cars,
-  manufacturers,
+const mapStateToProps = state => ({
+  car: state.carInfo.car,
 });
 
 CarInfo.propTypes = {
-  match: PropTypes.instanceOf(Object).isRequired,
-  cars: PropTypes.arrayOf(
-    PropTypes.instanceOf(Object),
-  ).isRequired,
-  manufacturers: PropTypes.arrayOf(
-    PropTypes.instanceOf(Object),
-  ).isRequired,
+  car: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default withRouter(connect(mapStateToProps)(CarInfo));

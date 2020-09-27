@@ -18,12 +18,12 @@ const fetchCarInfoReducer = (state = initialState, action) => {
     case FETCH_CAR_INFO_SUCCESS:
       return {
         ...state,
-        cars: action.payload,
+        car: action.payload,
         error: '',
       };
     case FETCH_CAR_INFO_FAILURE:
       return {
-        cars: [],
+        car: [],
         error: action.payload,
       };
     default:
