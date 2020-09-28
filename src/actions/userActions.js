@@ -16,9 +16,9 @@ import {
   LOGOUT,
 } from './types';
 
-const loginStat = status => ({
+const loginStat = data => ({
   type: LOGIN_STATUS,
-  paylod: status,
+  paylod: data,
 });
 
 const apiErrors = error => ({
@@ -26,10 +26,13 @@ const apiErrors = error => ({
   paylod: error,
 });
 
-export const loginStatus = () => dispatch => {
-  loggedIn({ withCredentials: true })
+export const loginStatusAction = () => dispatch => {
+  loggedIn()
     .then(response => {
-      dispatch(loginStat(response.data.logged_in));
+      // if (response.data.logged_in) {
+      console.log('login statu', response.data);
+      dispatch(loginStat(response.data));
+      // }
     })
     .catch(e => {
       dispatch(apiErrors(e.message));
@@ -78,7 +81,7 @@ export const loginUser = (username, password) => dispatch => {
     })
     .catch(e => {
       dispatch(loginFailure(e));
-      dispatch(error(e.toStrign()));
+      // dispatch(error(e.toStrign()));
     });
 };
 

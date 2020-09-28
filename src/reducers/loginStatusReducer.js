@@ -1,21 +1,28 @@
 import { LOGIN_STATUS, API_ERRORS } from '../actions/types';
 
 const initialState = {
-  loginStatus: false,
+  logged_in: false,
+  user: {},
+  message: '',
   errors: '',
 };
 
 const loginStatusReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_STATUS:
+      console.log('payload action', action.payload);
       return {
         ...state,
-        loginStatus: action.payload,
+        logged_in: action.payload,
+        user: action.payload,
+        message: action.payload,
         errors: '',
       };
     case API_ERRORS:
       return {
-        loginStatus: false,
+        logged_in: false,
+        user: {},
+        message: '',
         errors: action.payload,
       };
     default:

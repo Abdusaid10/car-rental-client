@@ -9,7 +9,7 @@ const Car = ({ car }) => {
   const displayCar = id => history.push(`/cars/${id}`);
 
   return (
-    <div role="button" onClick={() => displayCar(car.id)} onKeyDown={() => displayCar(car.id)} tabIndex={0}>
+    <div role="button">
       <img src={car.image_url} width="480" height="230" alt={`${car.model}`} onClick={() => displayCar(car.id)} onKeyDown={() => displayCar(car.id)} />
       <div className="car-listings">
         <p className="car-listing-info">
@@ -33,6 +33,7 @@ const Car = ({ car }) => {
           </span>
         </p>
       </div>
+      <button type="button" onClick={() => displayCar(car.id)} onKeyDown={() => displayCar(car.id)}>See Deatils</button>
     </div>
   );
 };
