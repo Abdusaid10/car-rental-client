@@ -1,12 +1,13 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable camelcase */
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router, Link, Switch, Route,
 } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
+import PropTypes, { object } from 'prop-types';
 import CarsList from '../containers/CarsList';
-import { loginStatusAction } from '../actions/userActions';
+import { loginStatusAction, logoutUser } from '../actions/userActions';
 import Login from '../containers/Login';
 import Signup from '../containers/Signup';
 import AddCar from '../containers/admin/AddCar';
@@ -34,6 +35,7 @@ const App = () => {
   const [logStatus, setLogStatus] = useState(logStatInitialState);
   const {
     logged_in,
+    user,
   } = logStatus;
 
   const handleLogin = data => {
@@ -44,10 +46,13 @@ const App = () => {
   };
 
   const handleLogout = () => {
+    logoutUser()(dispatch);
     setLogStatus({
       logged_in: false,
+      user: {},
     });
   };
+
   return (
     <div className="App">
       <Router>
@@ -55,7 +60,7 @@ const App = () => {
           <Link to="/" className="nav-links">Home</Link>
           {
             logged_in ? (
-              <Link to="/logout" className="nav-links">Logout</Link>
+              <Link to="/logout" className="nav-links" onClick={handleLogout}>Logout</Link>
             ) : (
               <>
                 <Link to="/login" className="nav-links">Login</Link>
@@ -78,7 +83,7 @@ const App = () => {
             <Login handleLogin={handleLogin} />
           </Route>
           <Route exact path="/signup">
-            <Signup />
+            <Signup handleLogin={handleLogin} />
           </Route>
           <Route excat path="/add_car">
             <AddCar />
@@ -95,12 +100,12 @@ const App = () => {
   );
 };
 
-const mapStateToProps = state => ({
-  logStat: state.loginStatus.loginStatus,
-});
+// const mapStateToProps = state => ({
+//   loginStatus: state.loginStatus.loginStatus,
+// });
 
 // App.propTypes = {
-//   logStat: PropTypes.bool.isRequired,
+//   loginStatus: PropTypes.instanceOf(Object).isRequired,
 // };
 
-export default connect(mapStateToProps)(App);
+export default App;

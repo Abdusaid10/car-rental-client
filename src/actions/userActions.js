@@ -2,7 +2,9 @@ import {
   loggedIn, login, logout, signup,
 } from '../api-services/services';
 import {
-  LOGIN_STATUS,
+  LOGIN_STATUS_REQUEST,
+  LOGIN_STATUS_SUCCESS,
+  NOT_LOGGEDIN,
   API_ERRORS,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -16,9 +18,18 @@ import {
   LOGOUT,
 } from './types';
 
-const loginStat = data => ({
-  type: LOGIN_STATUS,
+const loginStatRequest = () => ({
+  type: LOGIN_STATUS_REQUEST,
+});
+
+const loginStatSuccess = data => ({
+  type: LOGIN_STATUS_SUCCESS,
   paylod: data,
+});
+
+const notLoggedIn = data => ({
+  type: NOT_LOGGEDIN,
+  payload: data,
 });
 
 const apiErrors = error => ({
@@ -27,12 +38,14 @@ const apiErrors = error => ({
 });
 
 export const loginStatusAction = () => dispatch => {
+  dispatch(loginStatRequest());
   loggedIn()
     .then(response => {
-      // if (response.data.logged_in) {
-      console.log('login statu', response.data);
-      dispatch(loginStat(response.data));
-      // }
+      if (response.data.logged_in) {
+        console.log('login statu', response.data);
+        dispatch(loginStatSuccess(response.data));
+      }
+      dispatch(notLoggedIn(response.data));
     })
     .catch(e => {
       dispatch(apiErrors(e.message));
@@ -72,11 +85,14 @@ const logoutAction = ({
   type: LOGOUT,
 });
 
-export const loginUser = (username, password) => dispatch => {
-  dispatch(loginRequest({ username }));
-  login(username, password)
-    .then(user => {
-      dispatch(loginSuccess(user));
+export const loginUser = user => dispatch => {
+  dispatch(loginRequest(user));
+  login(user)
+    .then(response => {
+      if (response.data.logged_in) {
+        dispatch(loginSuccess(user));
+      }
+      dispatch(error('wrong credentials'));
       // history.push('/');
     })
     .catch(e => {
@@ -108,10 +124,18 @@ const singupFailure = e => ({
 export const register = user => dispatch => {
   dispatch(signupRequest(user));
   signup(user)
-    .then(user => {
-      dispatch(signupSuccess(user));
+    .then(response => {
+      if (response.data.status === 'created') {
+        const u = {
+          username: response.data.username,
+          email: response.data.email,
+          password_digest: response.data.password_digest,
+        };
+        dispatch(loginUser({ u }));
+        dispatch(signupSuccess(user));
+        dispatch(success('Signed up successfully'));
+      }
       // history.push('/login');
-      dispatch(success('Signed up successfully'));
     })
     .catch(e => {
       dispatch(singupFailure(e.toString));
