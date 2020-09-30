@@ -22,9 +22,9 @@ const loginStatRequest = () => ({
   type: LOGIN_STATUS_REQUEST,
 });
 
-const loginStatSuccess = data => ({
+const loginStatSuccess = user => ({
   type: LOGIN_STATUS_SUCCESS,
-  paylod: data,
+  paylod: user,
 });
 
 const notLoggedIn = data => ({
@@ -38,7 +38,7 @@ const apiErrors = error => ({
 });
 
 export const loginStatusAction = () => dispatch => {
-  dispatch(loginStatRequest());
+  // dispatch(loginStatRequest());
   loggedIn()
     .then(response => {
       if (response.data.logged_in) {
@@ -85,15 +85,15 @@ const logoutAction = ({
   type: LOGOUT,
 });
 
-export const loginUser = user => dispatch => {
+export const loginUser = (user, history) => dispatch => {
   dispatch(loginRequest(user));
   login(user)
     .then(response => {
       if (response.data.logged_in) {
-        dispatch(loginSuccess(user));
+        console.log('logged in ', response.data);
+        dispatch(loginSuccess(response.data));
+        history.push('/');
       }
-      dispatch(error('wrong credentials'));
-      // history.push('/');
     })
     .catch(e => {
       dispatch(loginFailure(e));
@@ -121,21 +121,21 @@ const singupFailure = e => ({
   payload: e,
 });
 
-export const register = user => dispatch => {
+export const register = (user, history) => dispatch => {
   dispatch(signupRequest(user));
   signup(user)
     .then(response => {
       if (response.data.status === 'created') {
-        const u = {
+        const user = {
           username: response.data.username,
           email: response.data.email,
-          password_digest: response.data.password_digest,
+          password: response.data.password,
         };
-        dispatch(loginUser({ u }));
         dispatch(signupSuccess(user));
+        dispatch(loginUser({ user }));
         dispatch(success('Signed up successfully'));
       }
-      // history.push('/login');
+      history.push('/login');
     })
     .catch(e => {
       dispatch(singupFailure(e.toString));

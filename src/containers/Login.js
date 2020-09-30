@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { loginUser } from '../actions/userActions';
@@ -38,17 +38,13 @@ const Login = ({ handleLogin }) => {
     // formData.append('email', email);
     // formData.append('password_digest', password_digest);
     const user = {
-      user: {
-        username,
-        email,
-        password,
-      },
+      username,
+      email,
+      password,
     };
 
-    loginUser(user)(dispatch);
-    handleLogin(user);
-
-    history.push('/');
+    loginUser({ user }, history)(dispatch);
+    handleLogin({ logged_in: true, user });
     setData(initialState);
     e.target.reset();
   };
@@ -67,8 +63,18 @@ const Login = ({ handleLogin }) => {
   );
 };
 
+// const mapStateToProps = state => ({
+//   logSat: state.loginStatus.logged_in,
+// });
+
+// const mapDispatchToProps = dispatch => ({
+//   loginUser: user => dispatch(loginUser({ user })),
+// });
+
 Login.propTypes = {
   handleLogin: PropTypes.func.isRequired,
+  logStat: PropTypes.bool.isRequired,
+  // loginStatus: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default Login;

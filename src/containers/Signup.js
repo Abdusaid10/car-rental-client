@@ -1,10 +1,11 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { register } from '../actions/userActions';
+import { register, loginUser } from '../actions/userActions';
 
-const Signup = () => {
+const Signup = ({ register, handleLogin }) => {
   const initialState = {
     username: '',
     email: '',
@@ -12,7 +13,7 @@ const Signup = () => {
     password_confirmation: '',
     errors: '',
   };
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [data, setData] = useState(initialState);
 
   const {
@@ -38,7 +39,8 @@ const Signup = () => {
       password,
       password_confirmation,
     };
-    register({ user })(dispatch);
+    register({ user });
+    handleLogin({ logged_in: true, user });
     setData(initialState);
     e.target.reset();
   };
@@ -59,11 +61,22 @@ const Signup = () => {
         <input type="text" name="email" placeholder="email" value={email} onChange={handelChange} />
         <input type="password" name="password" placeholder="password" value={password} onChange={handelChange} />
         <input type="password" name="password_confirmation" placeholder="password_confirmation" value={password_confirmation} onChange={handelChange} />
-        <input type="submit" value="Login" />
+        <input type="submit" value="Signup" />
       </form>
-      <Link to="/singup">Signup</Link>
+      <Link to="/login">Login</Link>
     </div>
   );
 };
 
-export default Signup;
+const mapDispatchToProps = dispatch => ({
+  loginUser: user => dispatch(loginUser({ user })),
+  register: user => dispatch(register({ user })),
+});
+
+Signup.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  // loginStatus: PropTypes.instanceOf(Object).isRequired,
+};
+
+export default connect(mapDispatchToProps)(Signup);

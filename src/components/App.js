@@ -5,7 +5,7 @@ import {
   BrowserRouter as Router, Link, Switch, Route,
 } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 import CarsList from '../containers/CarsList';
 import { loginStatusAction, logoutUser } from '../actions/userActions';
 import Login from '../containers/Login';
@@ -19,38 +19,42 @@ import '../styles/form.css';
 import '../styles/carListing.css';
 import '../styles/carInfo.css';
 
-const App = () => {
-  const dispatch = useDispatch();
-  const logStatInitialState = {
-    logged_in: false,
-    user: {},
-    message: '',
-    errors: '',
-  };
+const App = ({ loginStatus, loginStatusAction, logoutUser }) => {
+  // const dispatch = useDispatch();
+  // const logStatInitialState = {
+  //   logged_in: false,
+  //   user: {},
+  // };
 
   useEffect(() => {
-    loginStatusAction()(dispatch);
+    loginStatusAction();
   }, []);
 
-  const [logStatus, setLogStatus] = useState(logStatInitialState);
-  const {
-    logged_in,
-    user,
-  } = logStatus;
+  // console.log(loginStatusAction());
+  // const [logStatus, setLogStatus] = useState(logStatInitialState);
+  // const {
+  //   logged_in,
+  //   user,
+  // } = logStatus;
+  let { logged_in, user } = loginStatus;
 
-  const handleLogin = data => {
-    setLogStatus({
-      logged_in: true,
-      user: data.user,
-    });
+  const handleSignin = data => {
+    // setLogStatus({
+    //   logged_in: true,
+    //   user: data.user,
+    // });
+    logged_in = true;
+    user = data.user;
   };
 
   const handleLogout = () => {
-    logoutUser()(dispatch);
-    setLogStatus({
-      logged_in: false,
-      user: {},
-    });
+    logoutUser();
+    logged_in = false;
+    user = {};
+    // setLogStatus({
+    //   logged_in: false,
+    //   user: {},
+    // });
   };
 
   return (
@@ -60,7 +64,19 @@ const App = () => {
           <Link to="/" className="nav-links">Home</Link>
           {
             logged_in ? (
-              <Link to="/logout" className="nav-links" onClick={handleLogout}>Logout</Link>
+              <>
+                {
+                  user.admin ? (
+                    <>
+                      <Link to="/add_car" className="nav-links">Add Car</Link>
+                      <Link to="/add_category" className="nav-links">Add Category</Link>
+                      <Link to="/add_manufacturer" className="nav-links">Add Manufacturer</Link>
+                    </>
+                  ) : (
+                    <Link to="/logout" className="nav-links" onClick={handleLogout}>Logout</Link>
+                  )
+                }
+              </>
             ) : (
               <>
                 <Link to="/login" className="nav-links">Login</Link>
@@ -68,9 +84,6 @@ const App = () => {
               </>
             )
           }
-          <Link to="/add_car" className="nav-links">Add Car</Link>
-          <Link to="/add_category" className="nav-links">Add Category</Link>
-          <Link to="/add_manufacturer" className="nav-links">Add Manufacturer</Link>
         </div>
         <Switch>
           <Route exact path="/">
@@ -80,10 +93,10 @@ const App = () => {
             <CarInfo />
           </Route>
           <Route exact path="/login">
-            <Login handleLogin={handleLogin} />
+            <Login handleLogin={handleSignin} logStat={logged_in} />
           </Route>
           <Route exact path="/signup">
-            <Signup handleLogin={handleLogin} />
+            <Signup handleLogin={handleSignin} />
           </Route>
           <Route excat path="/add_car">
             <AddCar />
@@ -100,12 +113,18 @@ const App = () => {
   );
 };
 
-// const mapStateToProps = state => ({
-//   loginStatus: state.loginStatus.loginStatus,
-// });
+const mapStateToProps = state => ({
+  loginStatus: state.loginStatus,
+});
 
-// App.propTypes = {
-//   loginStatus: PropTypes.instanceOf(Object).isRequired,
-// };
+const mapDispatchToProps = dispatch => ({
+  loginStatusAction: () => dispatch(loginStatusAction()),
+});
 
-export default App;
+App.propTypes = {
+  loginStatus: PropTypes.instanceOf(Object).isRequired,
+  loginStatusAction: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
