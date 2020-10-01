@@ -1,13 +1,13 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable camelcase */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; // , { useState, useEffect } 
 import {
   BrowserRouter as Router, Link, Switch, Route,
 } from 'react-router-dom';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import CarsList from '../containers/CarsList';
-import { loginStatusAction, logoutUser } from '../actions/userActions';
+import { logoutUser, loginStatusAction } from '../actions/userActions';
 import Login from '../containers/Login';
 import Signup from '../containers/Signup';
 import AddCar from '../containers/admin/AddCar';
@@ -19,16 +19,18 @@ import '../styles/form.css';
 import '../styles/carListing.css';
 import '../styles/carInfo.css';
 
-const App = ({ loginStatus, loginStatusAction, logoutUser }) => {
+const App = ({ logoutUser }) => {
   // const dispatch = useDispatch();
   // const logStatInitialState = {
   //   logged_in: false,
   //   user: {},
   // };
-
-  useEffect(() => {
-    loginStatusAction();
-  }, []);
+  const logStat = useSelector(store => store.authReducer.logged_in);
+  const user = useSelector(store => store.authReducer.user);
+  // console.log('user', user);
+  // useEffect(() => {
+  //   loginStatusAction();
+  // }, []);
 
   // console.log(loginStatusAction());
   // const [logStatus, setLogStatus] = useState(logStatInitialState);
@@ -36,26 +38,26 @@ const App = ({ loginStatus, loginStatusAction, logoutUser }) => {
   //   logged_in,
   //   user,
   // } = logStatus;
-  let { logged_in, user } = loginStatus;
+  // let { logged_in, user } = loginStatus;
 
-  const handleSignin = data => {
-    // setLogStatus({
-    //   logged_in: true,
-    //   user: data.user,
-    // });
-    logged_in = true;
-    user = data.user;
-  };
+  // const handleSignin = data => {
+  //   // setLogStatus({
+  //   //   logged_in: true,
+  //   //   user: data.user,
+  //   // });
+  //   logged_in = true;
+  //   user = data.user;
+  // };
 
-  const handleLogout = () => {
-    logoutUser();
-    logged_in = false;
-    user = {};
-    // setLogStatus({
-    //   logged_in: false,
-    //   user: {},
-    // });
-  };
+  // const handleLogout = () => {
+  //   logoutUser();
+  //   logged_in = false;
+  //   user = {};
+  //   // setLogStatus({
+  //   //   logged_in: false,
+  //   //   user: {},
+  //   // });
+  // };
 
   return (
     <div className="App">
@@ -63,7 +65,7 @@ const App = ({ loginStatus, loginStatusAction, logoutUser }) => {
         <div className="nav-links-container">
           <Link to="/" className="nav-links">Home</Link>
           {
-            logged_in ? (
+            logStat ? (
               <>
                 {
                   user.admin ? (
@@ -73,7 +75,7 @@ const App = ({ loginStatus, loginStatusAction, logoutUser }) => {
                       <Link to="/add_manufacturer" className="nav-links">Add Manufacturer</Link>
                     </>
                   ) : (
-                    <Link to="/logout" className="nav-links" onClick={handleLogout}>Logout</Link>
+                    <Link to="/logout" className="nav-links" onClick={logoutUser}>Logout</Link>
                   )
                 }
               </>
@@ -93,10 +95,10 @@ const App = ({ loginStatus, loginStatusAction, logoutUser }) => {
             <CarInfo />
           </Route>
           <Route exact path="/login">
-            <Login handleLogin={handleSignin} logStat={logged_in} />
+            <Login />
           </Route>
           <Route exact path="/signup">
-            <Signup handleLogin={handleSignin} />
+            <Signup />
           </Route>
           <Route excat path="/add_car">
             <AddCar />
@@ -113,18 +115,19 @@ const App = ({ loginStatus, loginStatusAction, logoutUser }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  loginStatus: state.loginStatus,
-});
+// const mapStateToProps = state => ({
+//   loginStatus: state.loginStatus,
+// });
 
 const mapDispatchToProps = dispatch => ({
-  loginStatusAction: () => dispatch(loginStatusAction()),
+  // loginStatusAction: () => dispatch(loginStatusAction()),
+  logoutUser: () => dispatch(logoutUser),
 });
 
 App.propTypes = {
-  loginStatus: PropTypes.instanceOf(Object).isRequired,
-  loginStatusAction: PropTypes.func.isRequired,
+  // loginStatus: PropTypes.instanceOf(Object).isRequired,
+  // loginStatusAction: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapDispatchToProps)(App);

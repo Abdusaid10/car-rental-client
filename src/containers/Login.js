@@ -1,12 +1,12 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect, useDispatch } from 'react-redux';
+// import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { loginUser } from '../actions/userActions';
 
-const Login = ({ handleLogin }) => {
+const Login = () => {
   const initialState = {
     username: '',
     email: '',
@@ -33,10 +33,6 @@ const Login = ({ handleLogin }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // const formData = new FormData();
-    // formData.append('username', username);
-    // formData.append('email', email);
-    // formData.append('password_digest', password_digest);
     const user = {
       username,
       email,
@@ -44,7 +40,7 @@ const Login = ({ handleLogin }) => {
     };
 
     loginUser({ user }, history)(dispatch);
-    handleLogin({ logged_in: true, user });
+    // handleLogin({ logged_in: true, user });
     setData(initialState);
     e.target.reset();
   };
@@ -71,10 +67,10 @@ const Login = ({ handleLogin }) => {
 //   loginUser: user => dispatch(loginUser({ user })),
 // });
 
-Login.propTypes = {
-  handleLogin: PropTypes.func.isRequired,
-  logStat: PropTypes.bool.isRequired,
-  // loginStatus: PropTypes.instanceOf(Object).isRequired,
-};
+// Login.propTypes = {
+//   handleLogin: PropTypes.func.isRequired,
+//   logStat: PropTypes.bool.isRequired,
+//   // loginStatus: PropTypes.instanceOf(Object).isRequired,
+// };
 
 export default Login;

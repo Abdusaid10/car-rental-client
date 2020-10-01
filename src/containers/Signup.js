@@ -1,11 +1,11 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { register, loginUser } from '../actions/userActions';
 
-const Signup = ({ register, handleLogin }) => {
+const Signup = ({ register }) => {
   const initialState = {
     username: '',
     email: '',
@@ -13,7 +13,6 @@ const Signup = ({ register, handleLogin }) => {
     password_confirmation: '',
     errors: '',
   };
-  // const dispatch = useDispatch();
   const [data, setData] = useState(initialState);
 
   const {
@@ -40,7 +39,7 @@ const Signup = ({ register, handleLogin }) => {
       password_confirmation,
     };
     register({ user });
-    handleLogin({ logged_in: true, user });
+    // handleLogin({ logged_in: true, user });
     setData(initialState);
     e.target.reset();
   };
@@ -74,7 +73,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Signup.propTypes = {
-  handleLogin: PropTypes.func.isRequired,
+  // handleLogin: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   // loginStatus: PropTypes.instanceOf(Object).isRequired,
 };

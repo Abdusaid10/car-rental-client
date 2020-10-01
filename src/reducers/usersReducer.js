@@ -1,23 +1,35 @@
-import { LOGIN_STATUS, API_ERRORS } from '../actions/types';
+import {
+  LOGIN_SUCCESS, LOGIN_FAILURE, SIGNUP_SUCCESS, SIGNUP_FAILURE, LOGOUT,
+} from '../actions/types';
+
+// const loginStatus = localStorage.getItem('loginStatus');
+// let logged_in = true;
+
+// if (loginStatus.logged_in) logged_in = true;
 
 const initialState = {
-  user: [],
-  loggedIn: false,
+  user: {},
+  logged_in: false,
   errors: '',
 };
 
-const usersReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_STATUS:
+    case SIGNUP_SUCCESS:
+    case LOGIN_SUCCESS:
+      localStorage.setItem('loginStatus', action.payload);
+      console.log('login user', action.payload);
       return {
-        ...state,
-        loggedIn: action.payload,
+        user: action.payload.user,
+        logged_in: true,
         errors: '',
       };
-    case API_ERRORS:
+    case LOGIN_FAILURE:
+    case SIGNUP_FAILURE:
+    case LOGOUT:
       return {
-        user: [],
-        loggedIn: false,
+        user: {},
+        logged_in: false,
         errors: action.payload,
       };
     default:
@@ -25,4 +37,4 @@ const usersReducer = (state = initialState, action) => {
   }
 };
 
-export default usersReducer;
+export default authReducer;
