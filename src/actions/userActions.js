@@ -2,7 +2,6 @@ import {
   loggedIn, login, logout, signup,
 } from '../api-services/services';
 import {
-  LOGIN_STATUS_REQUEST,
   LOGIN_STATUS_SUCCESS,
   NOT_LOGGEDIN,
   API_ERRORS,
@@ -14,17 +13,12 @@ import {
   SIGNUP_FAILURE,
   SUCCESS,
   ERROR,
-  CLEAR,
   LOGOUT,
 } from './types';
 
-const loginStatRequest = () => ({
-  type: LOGIN_STATUS_REQUEST,
-});
-
 const loginStatSuccess = user => ({
   type: LOGIN_STATUS_SUCCESS,
-  paylod: user,
+  payload: user,
 });
 
 const notLoggedIn = data => ({
@@ -34,11 +28,10 @@ const notLoggedIn = data => ({
 
 const apiErrors = error => ({
   type: API_ERRORS,
-  paylod: error,
+  payload: error,
 });
 
 export const loginStatusAction = () => dispatch => {
-  // dispatch(loginStatRequest());
   loggedIn()
     .then(response => {
       if (response.data.logged_in) {
@@ -54,17 +47,17 @@ export const loginStatusAction = () => dispatch => {
 
 const loginRequest = user => ({
   type: LOGIN_REQUEST,
-  paylod: user,
+  payload: user,
 });
 
 const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
-  paylod: user,
+  payload: user,
 });
 
 const loginFailure = error => ({
   type: LOGIN_FAILURE,
-  paylod: error,
+  payload: error,
 });
 
 const success = message => ({
@@ -74,12 +67,12 @@ const success = message => ({
 
 const error = e => ({
   type: ERROR,
-  paylod: e,
+  payload: e,
 });
 
-const clear = () => ({
-  type: CLEAR,
-});
+// const clear = () => ({
+//   type: CLEAR,
+// });
 
 const logoutAction = ({
   type: LOGOUT,
@@ -122,20 +115,22 @@ const singupFailure = e => ({
 });
 
 export const register = (user, history) => dispatch => {
-  dispatch(signupRequest(user));
+  // dispatch(signupRequest(user));
   signup(user)
     .then(response => {
       if (response.data.status === 'created') {
-        const user = {
-          username: response.data.username,
-          email: response.data.email,
-          password: response.data.password,
+        const u = {
+          user: {
+            username: response.data.username,
+            email: response.data.email,
+            password: response.data.password,
+          },
         };
         dispatch(signupSuccess(user));
-        dispatch(loginUser({ user }));
+        dispatch(loginUser(u));
         dispatch(success('Signed up successfully'));
+        history.push('/login');
       }
-      history.push('/login');
     })
     .catch(e => {
       dispatch(singupFailure(e.toString));
