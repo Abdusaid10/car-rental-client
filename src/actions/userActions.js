@@ -1,5 +1,5 @@
 import {
-  loggedIn, login, logout, signup,
+  loggedIn, login, logout, signup, book,
 } from '../api-services/services';
 import {
   LOGIN_STATUS_SUCCESS,
@@ -8,12 +8,13 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
   SIGNUP_FAILURE,
   SUCCESS,
   ERROR,
   LOGOUT,
+  BOOK_CAR_SUCCESS,
+  BOOK_CAR_FAILURE,
 } from './types';
 
 const loginStatSuccess = user => ({
@@ -70,10 +71,6 @@ const error = e => ({
   payload: e,
 });
 
-// const clear = () => ({
-//   type: CLEAR,
-// });
-
 const logoutAction = ({
   type: LOGOUT,
 });
@@ -83,14 +80,12 @@ export const loginUser = (user, history) => dispatch => {
   login(user)
     .then(response => {
       if (response.data.logged_in) {
-        console.log('logged in ', response.data);
         dispatch(loginSuccess(response.data));
         history.push('/');
       }
     })
     .catch(e => {
       dispatch(loginFailure(e));
-      // dispatch(error(e.toStrign()));
     });
 };
 
@@ -98,11 +93,6 @@ export const logoutUser = () => dispatch => {
   dispatch(logout());
   return logoutAction();
 };
-
-const signupRequest = user => ({
-  type: SIGNUP_REQUEST,
-  payload: user,
-});
 
 const signupSuccess = user => ({
   type: SIGNUP_SUCCESS,
@@ -115,7 +105,6 @@ const singupFailure = e => ({
 });
 
 export const register = (user, history) => dispatch => {
-  // dispatch(signupRequest(user));
   signup(user)
     .then(response => {
       if (response.data.status === 'created') {
@@ -136,4 +125,24 @@ export const register = (user, history) => dispatch => {
       dispatch(singupFailure(e.toString));
       dispatch(error(e.toStrign()));
     });
+};
+
+const bookCarSuccess = data => ({
+  type: BOOK_CAR_SUCCESS,
+  payload: data,
+});
+
+const bookCarFailure = error => ({
+  type: BOOK_CAR_FAILURE,
+  payload: error,
+});
+
+export const bookCar = data => dispatch => {
+  book(data)
+    .then(response => {
+      if (response.data.status === 'created') {
+        dispatch(bookCarSuccess(response.data));
+      }
+    })
+    .catch(error => dispatch(bookCarFailure(error.message)));
 };

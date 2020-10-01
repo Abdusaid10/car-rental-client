@@ -9,6 +9,8 @@ export const getManufacturers = () => http.get('/manufacturers');
 
 export const getBookings = () => http.get('/bookings');
 
+export const book = data => http.post('/bookings', data);
+
 export const addCar = car => http.post('/cars', car);
 
 export const addCategory = category => http.post('/categories', category);
