@@ -14,7 +14,7 @@ const CarsList = ({
     fetchCars();
     fetchCategories();
     fetchManufacturers();
-  }, []);
+  }, [fetchCars, fetchCategories, fetchManufacturers]);
 
   const isCars = true ? cars !== undefined : false;
   /* <Link to={`/cars/:${car.id}`} key={car}> */

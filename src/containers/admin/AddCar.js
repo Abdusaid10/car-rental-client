@@ -26,7 +26,7 @@ const AddCar = ({
   useEffect(() => {
     fetchCategories();
     fetchManufacturers();
-  }, []);
+  }, [fetchCategories, fetchManufacturers]);
 
   const [data, setData] = useState(initialState);
   const [img, setImage] = useState({ image: '' });

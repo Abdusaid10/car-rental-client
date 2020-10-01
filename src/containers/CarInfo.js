@@ -10,7 +10,7 @@ const CarInfo = ({ car }) => {
 
   useEffect(() => {
     fetchCarInfo(parseInt(id, 10))(dispatch);
-  }, []);
+  }, [id, dispatch]);
 
   console.log('car obj', car);
 
