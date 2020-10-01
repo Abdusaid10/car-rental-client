@@ -1,13 +1,13 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable camelcase */
-import React, { useState, useEffect } from 'react'; // , { useState, useEffect } 
+import React from 'react';
 import {
   BrowserRouter as Router, Link, Switch, Route,
 } from 'react-router-dom';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import CarsList from '../containers/CarsList';
-import { logoutUser, loginStatusAction } from '../actions/userActions';
+import { logoutUser } from '../actions/userActions';
 import Login from '../containers/Login';
 import Signup from '../containers/Signup';
 import AddCar from '../containers/admin/AddCar';
@@ -20,44 +20,8 @@ import '../styles/carListing.css';
 import '../styles/carInfo.css';
 
 const App = ({ logoutUser }) => {
-  // const dispatch = useDispatch();
-  // const logStatInitialState = {
-  //   logged_in: false,
-  //   user: {},
-  // };
   const logStat = useSelector(store => store.authReducer.logged_in);
   const user = useSelector(store => store.authReducer.user);
-  // console.log('user', user);
-  // useEffect(() => {
-  //   loginStatusAction();
-  // }, []);
-
-  // console.log(loginStatusAction());
-  // const [logStatus, setLogStatus] = useState(logStatInitialState);
-  // const {
-  //   logged_in,
-  //   user,
-  // } = logStatus;
-  // let { logged_in, user } = loginStatus;
-
-  // const handleSignin = data => {
-  //   // setLogStatus({
-  //   //   logged_in: true,
-  //   //   user: data.user,
-  //   // });
-  //   logged_in = true;
-  //   user = data.user;
-  // };
-
-  // const handleLogout = () => {
-  //   logoutUser();
-  //   logged_in = false;
-  //   user = {};
-  //   // setLogStatus({
-  //   //   logged_in: false,
-  //   //   user: {},
-  //   // });
-  // };
 
   return (
     <div className="App">
@@ -115,18 +79,11 @@ const App = ({ logoutUser }) => {
   );
 };
 
-// const mapStateToProps = state => ({
-//   loginStatus: state.loginStatus,
-// });
-
 const mapDispatchToProps = dispatch => ({
-  // loginStatusAction: () => dispatch(loginStatusAction()),
   logoutUser: () => dispatch(logoutUser),
 });
 
 App.propTypes = {
-  // loginStatus: PropTypes.instanceOf(Object).isRequired,
-  // loginStatusAction: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
 };
 
