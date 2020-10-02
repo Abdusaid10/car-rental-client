@@ -1,21 +1,64 @@
+/* eslint-disable no-constant-condition */
+/* eslint-disable no-alert */
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { withRouter, useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import { fetchCarInfo } from '../actions/getActions';
 import { bookCar } from '../actions/userActions';
+import { isValidateDate, availableDates, duplicateBooking } from '../helpers/carInfoHelper';
 
 const CarInfo = ({ car }) => {
   const { id } = useParams();
+  const logStat = useSelector(store => store.authReducer.logged_in);
+  const user = useSelector(store => store.authReducer.user);
+
   const dispatch = useDispatch();
-  const [bookingData, setBookingData] = useState();
+
+  const date = new Date();
+  let day = date.getDate();
+  day = day < 10 ? `0${day}` : day;
+  let month = date.getMonth() + 1;
+  month = month < 10 ? `0${month}` : month;
+  const year = date.getFullYear();
+  const today = `${year}-${month}-${day}`;
+
+  const initialState = {
+    user_id: logStat ? user.id : null,
+    car_id: car.id,
+    start_date: today,
+    end_date: '',
+  };
+
+  const [bookingData, setBookingData] = useState(initialState);
   const {
     user_id,
     car_id,
     start_date,
     end_date,
   } = bookingData;
+
+  const bookings = [
+    {
+      user_id: 6,
+      car_id: 7,
+      start_date: '2020-10-20',
+      end_date: '2020-10-25',
+    },
+    {
+      user_id: 6,
+      car_id: 8,
+      start_date: '2020-10-26',
+      end_date: '2020-10-28',
+    },
+    {
+      user_id: 6,
+      car_id: 7,
+      start_date: '2020-10-29',
+      end_date: '2020-10-29',
+    },
+  ];
 
   useEffect(() => {
     fetchCarInfo(parseInt(id, 10))(dispatch);
@@ -39,14 +82,22 @@ const CarInfo = ({ car }) => {
       end_date,
     };
 
-    bookCar(booking)(dispatch);
-  };
-
-  const isFutureDate = idate => {
-    const today = new Date().getTime();
-    idate = idate.split('/');
-    idate = new Date(idate[2], idate[1] - 1, idate[0]).getTime();
-    return (today - idate) < 0;
+    if (logStat) {
+      if (isValidateDate(start_date, end_date)) {
+        if (availableDates(booking, bookings) === false) {
+          alert(`Car is not available between ${start_date} and ${end_date}`);
+        }
+        if (duplicateBooking(booking, bookings)) {
+          alert('You have already booked this car');
+        }
+        console.log('booking data', booking);
+        bookCar(booking)(dispatch);
+      } else {
+        alert('You have entered not valid dates');
+      }
+    } else {
+      alert('You need to loggin to book a car');
+    }
   };
 
   const isCarId = true ? car.id === parseInt(id, 10) : false;
@@ -101,11 +152,11 @@ const CarInfo = ({ car }) => {
                 <input type="hidden" name="car_id" value={car_id} />
                 <label htmlFor="start-date">
                   Start Date:
-                  <input type="date" id="start-date" name="start_date" value={start_date} onChange={handleBookingChange} />
+                  <input type="date" id="start-date" name="start_date" min={today} value={start_date} onChange={handleBookingChange} />
                 </label>
                 <label htmlFor="end-date">
                   End Date:
-                  <input type="date" id="end-date" name="end_date" value={end_date} onChange={handleBookingChange} />
+                  <input type="date" id="end-date" name="end_date" min={today} value={end_date} onChange={handleBookingChange} />
                 </label>
                 <input type="submit" value="Book car" />
               </form>
