@@ -4,9 +4,9 @@ import React from 'react';
 import {
   BrowserRouter as Router, Link, Switch, Route,
 } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import CarsList from '../containers/CarsList';
 import { logoutUser } from '../actions/userActions';
 import Login from '../containers/Login';
@@ -24,9 +24,9 @@ const App = () => {
   const logStat = useSelector(store => store.authReducer.logged_in);
   const user = useSelector(store => store.authReducer.user);
   const history = useHistory();
-
+  const dispatch = useDispatch();
   const handleLogout = () => {
-    logoutUser(history);
+    logoutUser(history)(dispatch);
   };
   return (
     <div className="App">
@@ -84,12 +84,12 @@ const App = () => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  logoutUser: () => dispatch(logoutUser()),
-});
+// const mapDispatchToProps = dispatch => ({
+//   logoutUser: () => dispatch(logoutUser()),
+// });
 
-App.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-};
+// App.propTypes = {
+//   logoutUser: PropTypes.func.isRequired,
+// };
 
 export default App;

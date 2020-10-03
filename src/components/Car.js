@@ -10,7 +10,7 @@ const Car = ({ car }) => {
 
   return (
     <div role="button">
-      <img src={car.image_url} width="480" height="230" alt={`${car.model}`} onClick={() => displayCar(car.id)} onKeyDown={() => displayCar(car.id)} />
+      <img src={car.image_url} width="480" height="230" alt={`${car.model}`} />
       <div className="car-listings">
         <p className="car-listing-info">
           <span>

@@ -71,7 +71,7 @@ const error = e => ({
   payload: e,
 });
 
-const logoutAction = ({
+const logoutAction = () => ({
   type: LOGOUT,
 });
 
@@ -107,20 +107,27 @@ const singupFailure = e => ({
   payload: e,
 });
 
-export const register = (user, history) => dispatch => {
+export const register = user => dispatch => {
   signup(user)
     .then(response => {
       if (response.data.status === 'created') {
         dispatch(signupSuccess(user));
-        dispatch(loginUser({
-          user: {
-            username: response.data.username,
-            email: response.dat.email,
-            password: response.data.password,
-          },
-        }));
+        console.log('user', user);
+
+        // const {
+        //   username,
+        //   email,
+        //   password,
+        // } = user;
+        // console.log('made up user', {
+        //   user: {
+        //     username,
+        //     email,
+        //     password,
+        //   },
+        // });
+        // dispatch(loginUser());
         dispatch(success('Signed up successfully'));
-        history.push('/');
       }
     })
     .catch(e => {
@@ -143,6 +150,8 @@ export const bookCar = data => dispatch => {
     .then(response => {
       if (response.data.status === 'created') {
         dispatch(bookCarSuccess(response.data));
+        // eslint-disable-next-line no-alert
+        alert('Car booked successfully');
       }
     })
     .catch(error => dispatch(bookCarFailure(error.message)));

@@ -34,14 +34,20 @@ const Signup = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const user = {
+    let user = {
       username,
       email,
       password,
       password_confirmation,
     };
     register({ user }, history)(dispatch);
-    // loginUser({ user }, history)(dispatch);
+    user = {
+      username,
+      email,
+      password,
+    };
+    loginUser({ user }, history)(dispatch);
+    history.push('/');
     // handleLogin({ logged_in: true, user });
     setData(initialState);
     e.target.reset();
