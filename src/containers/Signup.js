@@ -1,11 +1,12 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { register, loginUser } from '../actions/userActions';
 
-const Signup = ({ register }) => {
+const Signup = () => {
   const initialState = {
     username: '',
     email: '',
@@ -13,8 +14,9 @@ const Signup = ({ register }) => {
     password_confirmation: '',
     errors: '',
   };
+  const dispatch = useDispatch();
   const [data, setData] = useState(initialState);
-
+  const history = useHistory();
   const {
     username,
     email,
@@ -38,19 +40,12 @@ const Signup = ({ register }) => {
       password,
       password_confirmation,
     };
-    register({ user });
+    register({ user }, history)(dispatch);
+    // loginUser({ user }, history)(dispatch);
     // handleLogin({ logged_in: true, user });
     setData(initialState);
     e.target.reset();
   };
-
-  // const handleErrors = () => {
-  //   return (
-  //     <ul>
-  //        { errors ? }
-  //     </ul>
-  //   )
-  // }
 
   return (
     <div>
@@ -67,15 +62,15 @@ const Signup = ({ register }) => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  loginUser: user => dispatch(loginUser({ user })),
-  register: user => dispatch(register({ user })),
-});
+// const mapDispatchToProps = dispatch => ({
+//   loginUser: user => dispatch(loginUser({ user })),
+//   register: user => dispatch(register({ user })),
+// });
 
-Signup.propTypes = {
-  // handleLogin: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
-  // loginStatus: PropTypes.instanceOf(Object).isRequired,
-};
+// Signup.propTypes = {
+//   // handleLogin: PropTypes.func.isRequired,
+//   register: PropTypes.func.isRequired,
+//   // loginStatus: PropTypes.instanceOf(Object).isRequired,
+// };
 
-export default connect(mapDispatchToProps)(Signup);
+export default Signup;

@@ -1,9 +1,10 @@
+/* eslint-disable camelcase */
 import {
   LOGIN_SUCCESS, LOGIN_FAILURE, SIGNUP_SUCCESS, SIGNUP_FAILURE, LOGOUT,
 } from '../actions/types';
 
 // const loginStatus = localStorage.getItem('loginStatus');
-// let logged_in = true;
+// let logged_in = false;
 
 // if (loginStatus.logged_in) logged_in = true;
 
@@ -27,6 +28,7 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_FAILURE:
     case SIGNUP_FAILURE:
     case LOGOUT:
+      // localStorage.removeItem('loginStatus');
       return {
         user: {},
         logged_in: false,

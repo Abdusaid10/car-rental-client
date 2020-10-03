@@ -39,26 +39,26 @@ const CarInfo = ({ car }) => {
     end_date,
   } = bookingData;
 
-  const bookings = [
-    {
-      user_id: 6,
-      car_id: 7,
-      start_date: '2020-10-20',
-      end_date: '2020-10-25',
-    },
-    {
-      user_id: 6,
-      car_id: 8,
-      start_date: '2020-10-26',
-      end_date: '2020-10-28',
-    },
-    {
-      user_id: 6,
-      car_id: 7,
-      start_date: '2020-10-29',
-      end_date: '2020-10-29',
-    },
-  ];
+  // const bookings = [
+  //   {
+  //     user_id: 6,
+  //     car_id: 7,
+  //     start_date: '2020-10-20',
+  //     end_date: '2020-10-25',
+  //   },
+  //   {
+  //     user_id: 6,
+  //     car_id: 8,
+  //     start_date: '2020-10-26',
+  //     end_date: '2020-10-28',
+  //   },
+  //   {
+  //     user_id: 6,
+  //     car_id: 7,
+  //     start_date: '2020-10-29',
+  //     end_date: '2020-10-29',
+  //   },
+  // ];
 
   useEffect(() => {
     fetchCarInfo(parseInt(id, 10))(dispatch);
@@ -84,12 +84,12 @@ const CarInfo = ({ car }) => {
 
     if (logStat) {
       if (isValidateDate(start_date, end_date)) {
-        if (availableDates(booking, bookings) === false) {
-          alert(`Car is not available between ${start_date} and ${end_date}`);
-        }
-        if (duplicateBooking(booking, bookings)) {
-          alert('You have already booked this car');
-        }
+        // if (availableDates(booking, bookings) === false) {
+        //   alert(`Car is not available between ${start_date} and ${end_date}`);
+        // }
+        // if (duplicateBooking(booking, bookings)) {
+        //   alert('You have already booked this car');
+        // }
         console.log('booking data', booking);
         bookCar(booking)(dispatch);
       } else {

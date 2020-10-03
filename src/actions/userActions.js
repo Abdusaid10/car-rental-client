@@ -76,7 +76,6 @@ const logoutAction = ({
 });
 
 export const loginUser = (user, history) => dispatch => {
-  dispatch(loginRequest(user));
   login(user)
     .then(response => {
       if (response.data.logged_in) {
@@ -89,9 +88,13 @@ export const loginUser = (user, history) => dispatch => {
     });
 };
 
-export const logoutUser = () => dispatch => {
-  dispatch(logout());
-  return logoutAction();
+export const logoutUser = history => dispatch => {
+  logout()
+    .then(() => {
+      dispatch(logoutAction());
+      history.push('/');
+    })
+    .catch(error => console.log(error));
 };
 
 const signupSuccess = user => ({
@@ -108,22 +111,20 @@ export const register = (user, history) => dispatch => {
   signup(user)
     .then(response => {
       if (response.data.status === 'created') {
-        const u = {
+        dispatch(signupSuccess(user));
+        dispatch(loginUser({
           user: {
             username: response.data.username,
-            email: response.data.email,
+            email: response.dat.email,
             password: response.data.password,
           },
-        };
-        dispatch(signupSuccess(user));
-        dispatch(loginUser(u));
+        }));
         dispatch(success('Signed up successfully'));
-        history.push('/login');
+        history.push('/');
       }
     })
     .catch(e => {
       dispatch(singupFailure(e.toString));
-      dispatch(error(e.toStrign()));
     });
 };
 

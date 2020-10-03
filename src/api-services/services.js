@@ -23,4 +23,4 @@ export const login = user => http.post('/login', user);
 
 export const loggedIn = () => http.get('/logged_in');
 
-export const logout = () => http.get('/logout');
+export const logout = () => http.delete('/logout');

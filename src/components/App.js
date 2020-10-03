@@ -4,7 +4,8 @@ import React from 'react';
 import {
   BrowserRouter as Router, Link, Switch, Route,
 } from 'react-router-dom';
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import CarsList from '../containers/CarsList';
 import { logoutUser } from '../actions/userActions';
@@ -19,10 +20,14 @@ import '../styles/form.css';
 import '../styles/carListing.css';
 import '../styles/carInfo.css';
 
-const App = ({ logoutUser }) => {
+const App = () => {
   const logStat = useSelector(store => store.authReducer.logged_in);
   const user = useSelector(store => store.authReducer.user);
+  const history = useHistory();
 
+  const handleLogout = () => {
+    logoutUser(history);
+  };
   return (
     <div className="App">
       <Router>
@@ -39,7 +44,7 @@ const App = ({ logoutUser }) => {
                       <Link to="/add_manufacturer" className="nav-links">Add Manufacturer</Link>
                     </>
                   ) : (
-                    <Link to="/logout" className="nav-links" onClick={logoutUser}>Logout</Link>
+                    <Link to="/logout" className="nav-links" onClick={handleLogout}>Logout</Link>
                   )
                 }
               </>
@@ -80,11 +85,11 @@ const App = ({ logoutUser }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  logoutUser: () => dispatch(logoutUser),
+  logoutUser: () => dispatch(logoutUser()),
 });
 
 App.propTypes = {
   logoutUser: PropTypes.func.isRequired,
 };
 
-export default connect(mapDispatchToProps)(App);
+export default App;
