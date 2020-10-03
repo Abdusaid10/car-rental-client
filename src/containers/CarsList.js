@@ -21,8 +21,10 @@ const CarsList = ({
 
   return (
     <div className="cars-list-container" key="carList">
-      <CategoriesList key="categories" categories={categories} />
-      <ManufacturersList key="manufacturers" manufacturers={manufacturers} />
+      <div className="filters">
+        <CategoriesList key="categories" categories={categories} />
+        <ManufacturersList key="manufacturers" manufacturers={manufacturers} />
+      </div>
       <div className="cars-wrapper" key="carsWrapper">
         { isCars
           ? cars.map(car => (

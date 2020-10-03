@@ -88,7 +88,7 @@ export const loginUser = (user, history) => dispatch => {
     });
 };
 
-export const logoutUser = history => dispatch => {
+export const logoutUser = (history) => dispatch => {
   logout()
     .then(() => {
       dispatch(logoutAction());
@@ -107,27 +107,13 @@ const singupFailure = e => ({
   payload: e,
 });
 
-export const register = user => dispatch => {
+export const register = (user, history) => dispatch => {
   signup(user)
     .then(response => {
       if (response.data.status === 'created') {
         dispatch(signupSuccess(user));
-        console.log('user', user);
-
-        // const {
-        //   username,
-        //   email,
-        //   password,
-        // } = user;
-        // console.log('made up user', {
-        //   user: {
-        //     username,
-        //     email,
-        //     password,
-        //   },
-        // });
-        // dispatch(loginUser());
         dispatch(success('Signed up successfully'));
+        history.push('/');
       }
     })
     .catch(e => {

@@ -2,38 +2,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
-// import history from '../constants/history';
 
 const Car = ({ car }) => {
   const history = useHistory();
   const displayCar = id => history.push(`/cars/${id}`);
 
   return (
-    <div role="button">
-      <img src={car.image_url} width="480" height="230" alt={`${car.model}`} />
-      <div className="car-listings">
-        <p className="car-listing-info">
-          <span>
-            {car.manufacturer.manufacturer}
-          </span>
-          <span className="car-listing-items">
-            {car.model}
-          </span>
-        </p>
-        <p className="car-listing-info">
-          Status:
-          <span className="car-listing-items">
-            {car.status}
-          </span>
-        </p>
-        <p className="car-listing-info">
-          Price:
-          <span className="car-listing-items">
-            {car.price}
-          </span>
-        </p>
+    <div className="car-listing-container">
+      <img className="car-listing-img" src={car.image_url} alt={`${car.model}`} />
+      <div className="car-listing">
+        <div className="car-listing-info">
+          <div id="maker-logo">
+            <img className="logo" src={car.manufacturer.logo_url} alt={`${car.manufacturer.manufacturer}`} />
+            <span className="car-listing-items car-maker">
+              {car.manufacturer.manufacturer}
+            </span>
+            <span className="car-listing-items car-model ">
+              {car.model}
+            </span>
+          </div>
+          <div className="car-status-info">
+            <span className="car-listing-items">Status:</span>
+            <span className="car-listing-items">
+              {car.status}
+            </span>
+          </div>
+          <div className="car-price-info">
+            <span className="car-listing-items">Price:</span>
+            <span className="car-listing-items">
+              {car.price}
+            </span>
+          </div>
+        </div>
+        <button type="button" id="detailsBtn" onClick={() => displayCar(car.id)} onKeyDown={() => displayCar(car.id)}>See Deatils</button>
       </div>
-      <button type="button" onClick={() => displayCar(car.id)} onKeyDown={() => displayCar(car.id)}>See Deatils</button>
     </div>
   );
 };

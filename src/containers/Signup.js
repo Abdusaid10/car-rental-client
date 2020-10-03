@@ -2,9 +2,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { register, loginUser } from '../actions/userActions';
+import { register } from '../actions/userActions';
 
 const Signup = () => {
   const initialState = {
@@ -34,20 +33,15 @@ const Signup = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    let user = {
+    const user = {
       username,
       email,
       password,
       password_confirmation,
     };
     register({ user }, history)(dispatch);
-    user = {
-      username,
-      email,
-      password,
-    };
-    loginUser({ user }, history)(dispatch);
-    history.push('/');
+    // loginUser({ user }, history)(dispatch);
+    // history.push('/');
     // handleLogin({ logged_in: true, user });
     setData(initialState);
     e.target.reset();
@@ -56,14 +50,15 @@ const Signup = () => {
   return (
     <div>
       <h4>Signup</h4>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="username" placeholder="username" value={username} onChange={handelChange} />
-        <input type="text" name="email" placeholder="email" value={email} onChange={handelChange} />
-        <input type="password" name="password" placeholder="password" value={password} onChange={handelChange} />
-        <input type="password" name="password_confirmation" placeholder="password_confirmation" value={password_confirmation} onChange={handelChange} />
-        <input type="submit" value="Signup" />
+      <form className="form-container" onSubmit={handleSubmit}>
+        <input className="form-item" type="text" name="username" placeholder="username" value={username} onChange={handelChange} />
+        <input className="form-item" type="text" name="email" placeholder="email" value={email} onChange={handelChange} />
+        <input className="form-item" type="password" name="password" placeholder="password" value={password} onChange={handelChange} />
+        <input className="form-item" type="password" name="password_confirmation" placeholder="password_confirmation" value={password_confirmation} onChange={handelChange} />
+        <input className="btn btn-primary" type="submit" value="Signup" />
+        <span>or</span>
+        <Link to="/login" className="btn btn-secondary">Login</Link>
       </form>
-      <Link to="/login">Login</Link>
     </div>
   );
 };

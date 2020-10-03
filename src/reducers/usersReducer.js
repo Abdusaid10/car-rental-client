@@ -3,11 +3,6 @@ import {
   LOGIN_SUCCESS, LOGIN_FAILURE, SIGNUP_SUCCESS, SIGNUP_FAILURE, LOGOUT,
 } from '../actions/types';
 
-// const loginStatus = localStorage.getItem('loginStatus');
-// let logged_in = false;
-
-// if (loginStatus.logged_in) logged_in = true;
-
 const initialState = {
   user: {},
   logged_in: false,
@@ -16,8 +11,8 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SIGNUP_SUCCESS:
     case LOGIN_SUCCESS:
+    case SIGNUP_SUCCESS:
       localStorage.setItem('loginStatus', action.payload);
       console.log('login user', action.payload);
       return {
@@ -28,7 +23,6 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_FAILURE:
     case SIGNUP_FAILURE:
     case LOGOUT:
-      // localStorage.removeItem('loginStatus');
       return {
         user: {},
         logged_in: false,

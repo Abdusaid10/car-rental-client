@@ -80,13 +80,14 @@ const CarInfo = ({ car }) => {
       {
         isCarId ? (
           <div id="car-info">
-            <h3>
-              <span>{car.manufacturer.manufacturer}</span>
+            <h3 id="carInfoHeader">
+              <img id="carInfoLogo" src={car.manufacturer.logo_url} alt="" />
+              <span id="manufacturer">{car.manufacturer.manufacturer}</span>
               <span>{car.model}</span>
             </h3>
             <img className="car-img" src={car.image_url} alt={`${car.manufacturer.manufacturer} ${car.model}`} />
             <div className="car-info-details">
-              <h3>Details</h3>
+              <h3 id="details">Details</h3>
               <div className="car-details-table">
                 <div className="entry-names">
                   <span>Manufacturer</span>
@@ -112,26 +113,28 @@ const CarInfo = ({ car }) => {
                 </div>
               </div>
               <div className="description-wrapper">
-                <span>Description</span>
+                <h3 id="desc">Description</h3>
                 <p className="description">
                   {car.description}
                 </p>
               </div>
             </div>
             <div>
-              Book car
-              <form onSubmit={handleBookingSubmit}>
+              <h3 id="bookCarHeader">
+                Book car
+              </h3>
+              <form className="booking-form" onSubmit={handleBookingSubmit}>
                 <input type="hidden" name="user_id" value={user_id} />
                 <input type="hidden" name="car_id" value={car_id} />
                 <label htmlFor="start-date">
-                  Start Date:
+                  <span id="startDate">Start Date</span>
                   <input type="date" id="start-date" name="start_date" min={today} value={start_date} onChange={handleBookingChange} />
                 </label>
                 <label htmlFor="end-date">
-                  End Date:
+                  <span id="endDate">End Date</span>
                   <input type="date" id="end-date" name="end_date" min={today} value={end_date} onChange={handleBookingChange} />
                 </label>
-                <input type="submit" value="Book car" />
+                <input id="bookCarBtn" type="submit" value="Book car" />
               </form>
             </div>
           </div>

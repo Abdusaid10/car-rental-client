@@ -1,3 +1,23 @@
+@font-face {
+  font-family: Montserrat;
+  src: url(../fonts/Montserrat/Montserrat-Bold.ttf);
+}
+
+@font-face {
+  font-family: Montserrat-reg;
+  src: url(../fonts/Montserrat/Montserrat-Regular.ttf);
+}
+
+body {
+  background-color: black;
+  width: 100%;
+  font-family:
+    Montserrat,
+    Helvetica,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 .App {
   text-align: center;
 }
@@ -39,13 +59,4 @@
 .nav-links {
   padding: 5px;
 
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

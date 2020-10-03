@@ -5,8 +5,7 @@ import {
   BrowserRouter as Router, Link, Switch, Route,
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-// import PropTypes from 'prop-types';
+import { Redirect, useHistory } from 'react-router';
 import CarsList from '../containers/CarsList';
 import { logoutUser } from '../actions/userActions';
 import Login from '../containers/Login';
@@ -19,6 +18,9 @@ import '../styles/App.css';
 import '../styles/form.css';
 import '../styles/carListing.css';
 import '../styles/carInfo.css';
+import '../styles/CarsList.css';
+import '../styles/reset.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   const logStat = useSelector(store => store.authReducer.logged_in);
@@ -28,6 +30,14 @@ const App = () => {
   const handleLogout = () => {
     logoutUser(history)(dispatch);
   };
+
+  const isLoggedinUserAdmin = () => {
+    if (logStat && user.amdin) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div className="App">
       <Router>
@@ -42,6 +52,7 @@ const App = () => {
                       <Link to="/add_car" className="nav-links">Add Car</Link>
                       <Link to="/add_category" className="nav-links">Add Category</Link>
                       <Link to="/add_manufacturer" className="nav-links">Add Manufacturer</Link>
+                      <Link to="/logout" className="nav-links" onClick={handleLogout}>Logout</Link>
                     </>
                   ) : (
                     <Link to="/logout" className="nav-links" onClick={handleLogout}>Logout</Link>
@@ -69,27 +80,37 @@ const App = () => {
           <Route exact path="/signup">
             <Signup />
           </Route>
-          <Route excat path="/add_car">
-            <AddCar />
+          <Route path="/add_car">
+            {
+              isLoggedinUserAdmin() ? (
+                <AddCar />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
           </Route>
           <Route exact path="/add_category">
-            <AddCategory />
+            {
+              isLoggedinUserAdmin() ? (
+                <AddCategory />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
           </Route>
           <Route exact path="/add_manufacturer">
-            <AddManufacturer />
+            {
+              isLoggedinUserAdmin() ? (
+                <AddManufacturer />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
           </Route>
         </Switch>
       </Router>
     </div>
   );
 };
-
-// const mapDispatchToProps = dispatch => ({
-//   logoutUser: () => dispatch(logoutUser()),
-// });
-
-// App.propTypes = {
-//   logoutUser: PropTypes.func.isRequired,
-// };
 
 export default App;

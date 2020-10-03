@@ -48,29 +48,16 @@ const Login = () => {
   return (
     <div>
       <h4>Login</h4>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="username" placeholder="username" value={username} onChange={handelChange} />
-        <input type="text" name="email" placeholder="email" value={email} onChange={handelChange} />
-        <input type="password" name="password" placeholder="password" value={password} onChange={handelChange} />
-        <input type="submit" value="Login" />
+      <form className="form-container" onSubmit={handleSubmit}>
+        <input className="form-item" type="text" name="username" placeholder="username" value={username} onChange={handelChange} />
+        <input className="form-item" type="text" name="email" placeholder="email" value={email} onChange={handelChange} />
+        <input className="form-item" type="password" name="password" placeholder="password" value={password} onChange={handelChange} />
+        <input className="btn btn-primary" type="submit" value="Login" />
+        <span>or</span>
+        <Link to="/singup" className="btn btn-secondary">Signup</Link>
       </form>
-      <Link to="/singup">Signup</Link>
     </div>
   );
 };
-
-// const mapStateToProps = state => ({
-//   logSat: state.loginStatus.logged_in,
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   loginUser: user => dispatch(loginUser({ user })),
-// });
-
-// Login.propTypes = {
-//   handleLogin: PropTypes.func.isRequired,
-//   logStat: PropTypes.bool.isRequired,
-//   // loginStatus: PropTypes.instanceOf(Object).isRequired,
-// };
 
 export default Login;
