@@ -16,7 +16,8 @@
   margin: 10px;
 }
 
-#manufacturers, #categories {
+#manufacturers,
+#categories {
   display: block;
   padding: 5px;
   margin: 10px;

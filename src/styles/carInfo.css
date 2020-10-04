@@ -3,25 +3,31 @@
   width: 100%;
   margin: auto;
 }
+
 #car-info {
   background-color: beige;
-  margin: auto;
   width: 50%;
   margin: 5px;
 }
-.car-info-container, .entry-names, .entry-values, .booking-form  {
+
+.car-info-container,
+.entry-names,
+.entry-values,
+.booking-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.entry-names, .entry-values {
+.entry-names,
+.entry-values {
   justify-content: start;
   align-items: flex-start;
   padding-bottom: 10px;
   padding-top: 10px;
 }
+
 .entry-names {
   padding-right: 10px;
 }
@@ -30,7 +36,10 @@
   padding-left: 10px;
 }
 
-#carInfoHeader, #details, #desc, #bookCarHeader {
+#carInfoHeader,
+#details,
+#desc,
+#bookCarHeader {
   display: block;
   background-color: rgb(149, 177, 194);
   color: white;
@@ -45,7 +54,7 @@
   align-items: center;
   justify-content: center;
   background-color: rgb(214, 225, 233);
-  color:#0290ff;
+  color: #0290ff;
 }
 
 .description {
@@ -54,11 +63,7 @@
 }
 
 .car-img {
-  width: 100%
-}
-
-.entry-names {
-
+  width: 100%;
 }
 
 #carInfoLogo {
@@ -70,12 +75,14 @@
 #manufacturer {
   padding-right: 5px;
 }
+
 .booking-form {
   margin-top: 10px;
   padding-top: 10px;
 }
 
-#startDate, #endDate {
+#startDate,
+#endDate {
   padding-right: 10px;
   font-weight: bold;
 }
@@ -85,13 +92,12 @@
 }
 
 #endDate {
-  color: rgb(214, 52, 52)
+  color: rgb(214, 52, 52);
 }
 
 #bookCarBtn {
   display: block;
   border: none;
-  /* background-color: rgba(2,250,35,.575); */
   background-color: #0290ff;
   color: white;
   font-weight: bold;

@@ -1,18 +1,16 @@
 .car-listing-container {
   display: block;
   background-color: beige;
-  margin: auto;
   width: 50%;
   margin: 5px;
-  /* padding: 5px; */
 }
 
 .car-listing {
-  margin-left:  auto;
-  /* padding: 10px; */
+  margin-left: auto;
 }
 
-.car-listing, .car-listing-info {
+.car-listing,
+.car-listing-info {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,7 +34,6 @@
 .car-listing-img {
   width: 100%;
 }
-
 
 #detailsBtn {
   border: none;

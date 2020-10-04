@@ -18,6 +18,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .App {
   text-align: center;
 }
@@ -58,5 +59,4 @@ body {
 
 .nav-links {
   padding: 5px;
-
 }
