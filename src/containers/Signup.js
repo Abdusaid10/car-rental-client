@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { register } from '../actions/userActions';
+import { register, loginUser } from '../actions/userActions';
 
 const Signup = () => {
   const initialState = {
@@ -40,6 +40,11 @@ const Signup = () => {
       password_confirmation,
     };
     register({ user }, history)(dispatch);
+    // user = {
+    //   username,
+    //   email,
+    //   password,
+    // };
     // loginUser({ user }, history)(dispatch);
     // history.push('/');
     // handleLogin({ logged_in: true, user });

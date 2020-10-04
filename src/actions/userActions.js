@@ -88,7 +88,7 @@ export const loginUser = (user, history) => dispatch => {
     });
 };
 
-export const logoutUser = (history) => dispatch => {
+export const logoutUser = history => dispatch => {
   logout()
     .then(() => {
       dispatch(logoutAction());
@@ -113,6 +113,7 @@ export const register = (user, history) => dispatch => {
       if (response.data.status === 'created') {
         dispatch(signupSuccess(user));
         dispatch(success('Signed up successfully'));
+        // dispatch(loginUser(user, history));
         history.push('/');
       }
     })

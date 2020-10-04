@@ -107,6 +107,9 @@ const App = () => {
               )
             }
           </Route>
+          <Route exact path="/logout">
+            <Redirect to="/" />
+          </Route>
         </Switch>
       </Router>
     </div>
