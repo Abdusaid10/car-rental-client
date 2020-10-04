@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { register, loginUser } from '../actions/userActions';
+import { register } from '../actions/userActions';
 
 const Signup = () => {
   const initialState = {

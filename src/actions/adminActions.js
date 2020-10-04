@@ -4,6 +4,7 @@ import {
 import {
   ADD_CAR_SUCCESS,
   ADD_CAR_FAILURE,
+  ADD_CATEGORY_SUCCESS,
   ADD_CATEGORY_FAILURE,
   ADD_MANUFACTURER_FAILURE,
   ADD_MANUFACTURER_SUCCESS,
@@ -23,12 +24,18 @@ export const addCarAction = car => dispatch => {
   dispatch(addCarSuccess());
   addCar(car)
     .then(() => {
+      // eslint-disable-next-line no-console
       console.log('Car added', car);
     })
     .catch(error => {
       dispatch(addCarFailure(error));
     });
 };
+
+const addCategorySuccess = data => ({
+  type: ADD_CATEGORY_SUCCESS,
+  payload: data,
+});
 
 const addCategoryFailure = error => ({
   type: ADD_CATEGORY_FAILURE,
@@ -37,8 +44,10 @@ const addCategoryFailure = error => ({
 
 export const addCategoryAction = category => dispatch => {
   addCategory(category)
-    .then(() => {
+    .then(response => {
+      // eslint-disable-next-line no-console
       console.log('category created');
+      dispatch(addCategorySuccess(response.data));
     })
     .catch(error => dispatch(addCategoryFailure(error)));
 };
@@ -57,7 +66,6 @@ export const addManufacturerAction = manufacturer => dispatch => {
   dispatch(addManufacturerSuccess());
   addManufacturer(manufacturer)
     .then(() => {
-      console.log('manufacturer added', manufacturer);
       addManufacturerSuccess(manufacturer);
     })
     .catch(error => dispatch(addManufacturerFailure(error)));

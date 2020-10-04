@@ -59,7 +59,8 @@ export const duplicateBooking = (booking, bookings) => {
     }
     // if (book.car_id === booking.car_id) {
     //   if ((
-    //     (bookingSyear <= bookEndyear && bookingSmonth <= bookEndmonth && bookingSday <= bookEndday)
+    //     (bookingSyear <= bookEndyear && bookingSmonth <= bookEndmonth && bookingSday
+    //        <= bookEndday)
     //     && (bookingSyear >= bookSyear && bookingSmonth >= bookSmonth && bookingSday >= bookSday))
     //     || ((bookingEndyear <= bookEndyear && bookingEndmonth <= bookEndmonth
     //       && bookingEndday <= bookEndday)

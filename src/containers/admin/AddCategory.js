@@ -16,7 +16,6 @@ const AddCategory = ({ addCat }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('catego', category);
 
     addCat(category);
     e.target.reset();

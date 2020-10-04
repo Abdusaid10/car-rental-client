@@ -19,7 +19,6 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
     case SIGNUP_SUCCESS:
       localStorage.setItem('loginStatus', action.payload);
-      console.log('login user', action.payload);
       return {
         user: action.payload.user,
         logged_in: true,

@@ -5,13 +5,11 @@ import {
   LOGIN_STATUS_SUCCESS,
   NOT_LOGGEDIN,
   API_ERRORS,
-  LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   SIGNUP_SUCCESS,
   SIGNUP_FAILURE,
   SUCCESS,
-  ERROR,
   LOGOUT,
   BOOK_CAR_SUCCESS,
   BOOK_CAR_FAILURE,
@@ -36,7 +34,6 @@ export const loginStatusAction = () => dispatch => {
   loggedIn()
     .then(response => {
       if (response.data.logged_in) {
-        console.log('login statu', response.data);
         dispatch(loginStatSuccess(response.data));
       }
       dispatch(notLoggedIn(response.data));
@@ -45,11 +42,6 @@ export const loginStatusAction = () => dispatch => {
       dispatch(apiErrors(e.message));
     });
 };
-
-const loginRequest = user => ({
-  type: LOGIN_REQUEST,
-  payload: user,
-});
 
 const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
@@ -64,11 +56,6 @@ const loginFailure = error => ({
 const success = message => ({
   type: SUCCESS,
   payload: message,
-});
-
-const error = e => ({
-  type: ERROR,
-  payload: e,
 });
 
 const logoutAction = () => ({
@@ -94,6 +81,7 @@ export const logoutUser = history => dispatch => {
       dispatch(logoutAction());
       history.push('/');
     })
+    // eslint-disable-next-line no-console
     .catch(error => console.log(error));
 };
 

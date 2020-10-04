@@ -63,6 +63,7 @@ const CarInfo = ({ car }) => {
 
     if (logStat) {
       if (isValidateDate(start_date, end_date)) {
+        // eslint-disable-next-line no-console
         console.log('booking data', booking);
         bookCar(booking)(dispatch);
       } else {

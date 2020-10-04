@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-// import { Route, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Car from '../components/Car';
@@ -16,8 +15,8 @@ const CarsList = ({
     fetchManufacturers();
   }, [fetchCars, fetchCategories, fetchManufacturers]);
 
+  // eslint-disable-next-line no-constant-condition
   const isCars = true ? cars !== undefined : false;
-  /* <Link to={`/cars/:${car.id}`} key={car}> */
 
   return (
     <div className="cars-list-container" key="carList">

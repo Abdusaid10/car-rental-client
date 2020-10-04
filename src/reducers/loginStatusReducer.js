@@ -1,5 +1,5 @@
 import {
-  LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS, NOT_LOGGEDIN, API_ERRORS,
+  LOGIN_STATUS_SUCCESS, NOT_LOGGEDIN, API_ERRORS,
 } from '../actions/types';
 
 const initialState = {
@@ -12,7 +12,6 @@ const initialState = {
 const loginStatusReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_STATUS_SUCCESS:
-      console.log('payload log stat success', action.payload);
       return {
         logged_in: action.payload.logged_in,
         user: action.payload.user,
@@ -20,7 +19,6 @@ const loginStatusReducer = (state = initialState, action) => {
         errors: '',
       };
     case NOT_LOGGEDIN:
-      console.log('payload not logged in', action.payload);
       return {
         logged_in: false,
         user: {},
