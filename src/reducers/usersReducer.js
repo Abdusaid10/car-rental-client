@@ -3,14 +3,14 @@ import {
   LOGIN_SUCCESS, LOGIN_FAILURE, SIGNUP_SUCCESS, SIGNUP_FAILURE, LOGOUT,
 } from '../actions/types';
 
-const loginStatus = localStorage.getItem('loginStatus');
-let logged_in = false;
+// const loginStatus = localStorage.getItem('loginStatus');
+// let logged_in = false;
 
-if (loginStatus.logged_in) logged_in = true;
+// if (loginStatus.logged_in) logged_in = true;
 
 const initialState = {
   user: {},
-  logged_in,
+  logged_in: false,
   errors: '',
 };
 
