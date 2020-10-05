@@ -31,12 +31,16 @@ const App = () => {
     logoutUser(history)(dispatch);
   };
 
-  const isLoggedinUserAdmin = () => {
-    if (logStat && user.amdin) {
-      return true;
-    }
-    return false;
-  };
+  // const isLoggedinUserAdmin = () => {
+  //   if (logStat && user.amdin) {
+  //     console.log('admin log true', logStat);
+  //     console.log('admin log true', user.amdin);
+  //     return true;
+  //   }
+  //     console.log('admin log true', logStat);
+  //     console.log('admin log true', user.amdin);
+  //   return false;
+  // };
 
   return (
     <div className="App">
@@ -82,8 +86,10 @@ const App = () => {
           </Route>
           <Route path="/add_car">
             {
-              isLoggedinUserAdmin() ? (
-                <AddCar />
+              logStat ? (
+                <>
+                  { user.admin ? (<AddCar />) : <Redirect to="/" /> }
+                </>
               ) : (
                 <Redirect to="/" />
               )
@@ -91,8 +97,10 @@ const App = () => {
           </Route>
           <Route exact path="/add_category">
             {
-              isLoggedinUserAdmin() ? (
-                <AddCategory />
+              logStat ? (
+                <>
+                  { user.admin ? (<AddCategory />) : <Redirect to="/" /> }
+                </>
               ) : (
                 <Redirect to="/" />
               )
@@ -100,8 +108,10 @@ const App = () => {
           </Route>
           <Route exact path="/add_manufacturer">
             {
-              isLoggedinUserAdmin() ? (
-                <AddManufacturer />
+              logStat ? (
+                <>
+                  { user.admin ? (<AddManufacturer />) : <Redirect to="/" /> }
+                </>
               ) : (
                 <Redirect to="/" />
               )
