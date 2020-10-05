@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
@@ -40,7 +39,6 @@ const Login = () => {
     };
 
     loginUser({ user }, history)(dispatch);
-    // handleLogin({ logged_in: true, user });
     setData(initialState);
     e.target.reset();
   };

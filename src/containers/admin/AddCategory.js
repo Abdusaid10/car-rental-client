@@ -37,7 +37,6 @@ const mapDispatchToProps = dispatch => ({
 
 AddCategory.propTypes = {
   addCat: PropTypes.func.isRequired,
-  // category: PropTypes.string.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(AddCategory);

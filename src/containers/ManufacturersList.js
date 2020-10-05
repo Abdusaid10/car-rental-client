@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ManufacturersList = ({ manufacturers /* , handleMakerClick */ }) => (
-  // <div id="manufacturers">
+const ManufacturersList = ({ manufacturers }) => (
   <select name="manufacturer" id="manufacturers">
     <option value="Manufacturer" selected disabled>Manufacturer</option>
     {
@@ -13,7 +12,6 @@ const ManufacturersList = ({ manufacturers /* , handleMakerClick */ }) => (
       ))
     }
   </select>
-  // </div>
 );
 
 ManufacturersList.propTypes = {
@@ -23,8 +21,6 @@ ManufacturersList.propTypes = {
       manufacturer: PropTypes.string,
     }),
   ).isRequired,
-  // eslint-disable-next-line react/require-default-props
-  // handleMakerClick: PropTypes.func,
 };
 
 export default ManufacturersList;

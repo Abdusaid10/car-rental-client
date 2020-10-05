@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CategoriesList = ({ categories /* , handleCatClick */ }) => (
-  // <div id="categories">
+const CategoriesList = ({ categories }) => (
   <select name="category" id="categories">
     <option value="Category" selected disabled>Category</option>
     {
@@ -13,7 +12,6 @@ const CategoriesList = ({ categories /* , handleCatClick */ }) => (
       ))
     }
   </select>
-  // </div>
 );
 
 CategoriesList.propTypes = {
@@ -23,8 +21,6 @@ CategoriesList.propTypes = {
       category: PropTypes.string,
     }),
   ).isRequired,
-  // eslint-disable-next-line react/require-default-props
-  // handleCatClick: PropTypes.func,
 };
 
 export default CategoriesList;

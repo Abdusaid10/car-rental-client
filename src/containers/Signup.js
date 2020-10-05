@@ -39,15 +39,14 @@ const Signup = () => {
       password,
       password_confirmation,
     };
-    register({ user }, history)(dispatch);
-    // user = {
-    //   username,
-    //   email,
-    //   password,
-    // };
-    // loginUser({ user }, history)(dispatch);
-    // history.push('/');
-    // handleLogin({ logged_in: true, user });
+
+    const loginU = {
+      username,
+      email,
+      password,
+    };
+    register({ user }, history, loginU)(dispatch);
+
     setData(initialState);
     e.target.reset();
   };
@@ -67,16 +66,5 @@ const Signup = () => {
     </div>
   );
 };
-
-// const mapDispatchToProps = dispatch => ({
-//   loginUser: user => dispatch(loginUser({ user })),
-//   register: user => dispatch(register({ user })),
-// });
-
-// Signup.propTypes = {
-//   // handleLogin: PropTypes.func.isRequired,
-//   register: PropTypes.func.isRequired,
-//   // loginStatus: PropTypes.instanceOf(Object).isRequired,
-// };
 
 export default Signup;

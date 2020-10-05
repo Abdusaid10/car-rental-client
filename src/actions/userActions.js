@@ -95,13 +95,20 @@ const singupFailure = e => ({
   payload: e,
 });
 
-export const register = (user, history) => dispatch => {
+export const register = (user, history, loginU) => dispatch => {
   signup(user)
     .then(response => {
       if (response.data.status === 'created') {
         dispatch(signupSuccess(user));
         dispatch(success('Signed up successfully'));
-        // dispatch(loginUser(user, history));
+        const u = {
+          user: {
+            username: loginU.username,
+            email: loginU.email,
+            password: loginU.password,
+          },
+        };
+        dispatch(loginUser(u, history));
         history.push('/');
       }
     })

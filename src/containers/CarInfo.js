@@ -65,6 +65,7 @@ const CarInfo = ({ car }) => {
       if (isValidateDate(start_date, end_date)) {
         // eslint-disable-next-line no-console
         console.log('booking data', booking);
+        alert('Car booked Successfully');
         bookCar(booking)(dispatch);
       } else {
         alert('You have entered not valid dates');
