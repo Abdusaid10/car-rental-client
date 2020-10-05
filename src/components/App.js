@@ -14,13 +14,12 @@ import AddCar from '../containers/admin/AddCar';
 import AddCategory from '../containers/admin/AddCategory';
 import AddManufacturer from '../containers/admin/AddManufacturer';
 import CarInfo from '../containers/CarInfo';
+import '../styles/reset.css';
 import '../styles/App.css';
 import '../styles/form.css';
 import '../styles/carListing.css';
 import '../styles/carInfo.css';
 import '../styles/CarsList.css';
-import '../styles/reset.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   const logStat = useSelector(store => store.authReducer.logged_in);
