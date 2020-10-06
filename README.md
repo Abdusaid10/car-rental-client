@@ -1,4 +1,4 @@
-# react-capstone
+# Car-Rental-Rlient
 It is a single-page application, to book a car. This repository contains only frontend of the project, backend can be found <a href="https://github.com/Abdusaid10/car-rental-api">here</a> and the live version of it <a href="https://car-booking-api-app.herokuapp.com/">here</a>. The home page of an app contains a list of cars that can be filtered and accessed to the details of a car and book it for one or a few days. To book a car you must log in or sign up. Also, there is an admin panel, admin can create/update/delete a new car/manufacturer/category.
 ### Technologies Used
 
@@ -17,18 +17,41 @@ It is a single-page application, to book a car. This repository contains only fr
 ## Live version
 
 A live version is hosted on Netlify.
-- [**Meal Recipes**]()
-
-## Screenshots
-
-<img src="">
-
-<img src="">
-
-<img src="">
+- [**CAR-RENTAL-CLIENT**](https://5f7c0f583e2aa9f3f205a57b--car-rental-client.netlify.app/)
 
 ## Run Locally
 To get a local copy up and running follow these simple example steps.
+
+Firstly clone the back end.
+
+```bash
+git clone https://github.com/Abdusaid10/car-rental-api
+cd car-rental-api
+```
+> Install dependencies
+```bash
+bundle install
+```
+> Create db
+```bash
+rails db:create
+```
+> Migrate db
+```bash
+rails db:migrate
+```
+> Seed db
+```bash
+rails db:seed
+```
+> Run Locally
+```bash
+rails s
+```
+It runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+And here are the steps to run the front end
 
 ```bash
 git clone https://github.com/Abdusaid10/car-rental-client
