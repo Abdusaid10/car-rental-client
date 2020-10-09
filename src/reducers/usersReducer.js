@@ -9,7 +9,7 @@ import {
 // if (loginStatus.logged_in) logged_in = true;
 
 const initialState = {
-  user: {},
+  token: '',
   logged_in: false,
   errors: '',
 };
@@ -18,9 +18,9 @@ const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
     case SIGNUP_SUCCESS:
-      localStorage.setItem('loginStatus', action.payload);
+      // localStorage.setItem('loginStatus', action.payload);
       return {
-        user: action.payload.user,
+        token: action.payload.auth_token,
         logged_in: true,
         errors: '',
       };
@@ -28,7 +28,7 @@ const authReducer = (state = initialState, action) => {
     case SIGNUP_FAILURE:
     case LOGOUT:
       return {
-        user: {},
+        token: '',
         logged_in: false,
         errors: action.payload,
       };

@@ -1,10 +1,5 @@
+import axios from 'axios';
 import {
-  loggedIn, login, logout, signup, book,
-} from '../api-services/services';
-import {
-  LOGIN_STATUS_SUCCESS,
-  NOT_LOGGEDIN,
-  API_ERRORS,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   SIGNUP_SUCCESS,
@@ -13,35 +8,8 @@ import {
   LOGOUT,
   BOOK_CAR_SUCCESS,
   BOOK_CAR_FAILURE,
+  BASE_URL,
 } from './types';
-
-const loginStatSuccess = user => ({
-  type: LOGIN_STATUS_SUCCESS,
-  payload: user,
-});
-
-const notLoggedIn = data => ({
-  type: NOT_LOGGEDIN,
-  payload: data,
-});
-
-const apiErrors = error => ({
-  type: API_ERRORS,
-  payload: error,
-});
-
-export const loginStatusAction = () => dispatch => {
-  loggedIn()
-    .then(response => {
-      if (response.data.logged_in) {
-        dispatch(loginStatSuccess(response.data));
-      }
-      dispatch(notLoggedIn(response.data));
-    })
-    .catch(e => {
-      dispatch(apiErrors(e.message));
-    });
-};
 
 const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
@@ -63,9 +31,10 @@ const logoutAction = () => ({
 });
 
 export const loginUser = (user, history) => dispatch => {
-  login(user)
+  axios.post(`${BASE_URL}/login`, user)
     .then(response => {
-      if (response.data.logged_in) {
+      console.log(response.data);
+      if (response.data.auth_token) {
         dispatch(loginSuccess(response.data));
         history.push('/');
       }
@@ -76,13 +45,8 @@ export const loginUser = (user, history) => dispatch => {
 };
 
 export const logoutUser = history => dispatch => {
-  logout()
-    .then(() => {
-      dispatch(logoutAction());
-      history.push('/');
-    })
-    // eslint-disable-next-line no-console
-    .catch(error => console.log(error));
+  dispatch(logoutAction());
+  history.push('/');
 };
 
 const signupSuccess = user => ({
@@ -95,20 +59,14 @@ const singupFailure = e => ({
   payload: e,
 });
 
-export const register = (user, history, loginU) => dispatch => {
-  signup(user)
+export const signup = (user, history) => dispatch => {
+  axios.post(`${BASE_URL}/users`, { user })
     .then(response => {
-      if (response.data.status === 'created') {
+      console.log(response);
+      if (response.status === 'created') {
         dispatch(signupSuccess(user));
         dispatch(success('Signed up successfully'));
-        const u = {
-          user: {
-            username: loginU.username,
-            email: loginU.email,
-            password: loginU.password,
-          },
-        };
-        dispatch(loginUser(u, history));
+
         history.push('/');
       }
     })
@@ -128,7 +86,7 @@ const bookCarFailure = error => ({
 });
 
 export const bookCar = data => dispatch => {
-  book(data)
+  axios.post(`${BASE_URL}/bookings`, data)
     .then(response => {
       if (response.data.status === 'created') {
         dispatch(bookCarSuccess(response.data));

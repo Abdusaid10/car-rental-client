@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { register } from '../actions/userActions';
+import { signup } from '../actions/userActions';
 
 const Signup = () => {
   const initialState = {
@@ -40,12 +40,7 @@ const Signup = () => {
       password_confirmation,
     };
 
-    const loginU = {
-      username,
-      email,
-      password,
-    };
-    register({ user }, history, loginU)(dispatch);
+    signup({ user }, history)(dispatch);
 
     setData(initialState);
     e.target.reset();

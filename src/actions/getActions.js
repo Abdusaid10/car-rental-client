@@ -34,7 +34,7 @@ export const fetchCars = () => dispatch => {
   dispatch(fetchCarsRequest());
   getCars()
     .then(response => {
-      dispatch(fetchCarsSuccess(response.data.cars));
+      dispatch(fetchCarsSuccess(response.data));
     })
     .catch(error => {
       dispatch(fetchCarsFailure(error.message));
@@ -96,7 +96,8 @@ export const fetchManufacturers = () => dispatch => {
   dispatch(fetchManufacturersRequest());
   getManufacturers()
     .then(response => {
-      dispatch(fetchManufacturersSuccess(response.data.manufacturers));
+      console.log('manfuc', response.data);
+      dispatch(fetchManufacturersSuccess(response.data));
     })
     .catch(error => dispatch(fetchManufacturersFailure(error.message)));
 };
