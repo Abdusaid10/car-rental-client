@@ -52,8 +52,8 @@ const Login = () => {
     <div>
       <h4>Login</h4>
       <form className="form-container" onSubmit={handleSubmit}>
-        <input className="form-item" type="text" name="email" placeholder="email" value={email} onChange={handelChange} />
-        <input className="form-item" type="password" name="password" placeholder="password" value={password} onChange={handelChange} />
+        <input className="form-item" type="text" name="email" placeholder="email" value={email} onChange={handelChange} required />
+        <input className="form-item" type="password" name="password" placeholder="password" value={password} onChange={handelChange} required />
         {
           loginError && (
           <div>

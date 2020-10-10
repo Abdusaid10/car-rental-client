@@ -45,10 +45,11 @@ const signupSuccess = user => ({
 });
 
 export const signup = (user, history) => dispatch => {
-  axios.post(`${BASE_URL}/users`, { user })
+  axios.post(`${BASE_URL}/users`, user)
     .then(response => {
-      if (response.status === 'created') {
-        dispatch(signupSuccess(user));
+      console.log('status', response.status);
+      if (response.status === 201) {
+        dispatch(signupSuccess(response.data));
         dispatch(success('Signed up successfully'));
 
         history.push('/');
