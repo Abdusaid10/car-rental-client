@@ -25,6 +25,7 @@ const App = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     logoutUser()(dispatch);
+    // window.
   };
 
   return (

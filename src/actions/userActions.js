@@ -30,7 +30,7 @@ export const loginUser = (user, history) => dispatch => {
       history.push('/');
     })
     .catch(e => {
-      dispatch(loginFailure(e));
+      dispatch(loginFailure(e.message));
     });
 };
 
@@ -55,7 +55,7 @@ export const signup = (user, history) => dispatch => {
       }
     })
     .catch(e => {
-      dispatch(singupFailure(e.toString));
+      dispatch(singupFailure(e.message));
     });
 };
 

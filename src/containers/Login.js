@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { loginUser } from '../actions/userActions';
+import { clearErrors } from '../actions/errors';
 
 const Login = () => {
   const initialState = {
@@ -18,7 +19,8 @@ const Login = () => {
 
   useEffect(() => {
     setLoginError(errors.loginError);
-  });
+  }, [errors]);
+
   const {
     email,
     password,
@@ -34,11 +36,13 @@ const Login = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+
+    setLoginError(null);
+    dispatch(clearErrors());
     const user = {
       email,
       password,
     };
-    setLoginError(null);
     loginUser(user, history)(dispatch);
     setData(initialState);
     e.target.reset();
@@ -50,10 +54,17 @@ const Login = () => {
       <form className="form-container" onSubmit={handleSubmit}>
         <input className="form-item" type="text" name="email" placeholder="email" value={email} onChange={handelChange} />
         <input className="form-item" type="password" name="password" placeholder="password" value={password} onChange={handelChange} />
+        {
+          loginError && (
+          <div>
+            <span className="text-danger">Wrong credentials</span>
+            <span className="text-danger">or user does not exist</span>
+          </div>
+          )
+        }
         <input className="btn btn-primary" type="submit" value="Login" />
-        <span>or</span>
-        <Link to="/singup" className="btn btn-secondary">Signup</Link>
       </form>
+      <Link to="/singup" className="btn btn-secondary">Signup</Link>
     </div>
   );
 };

@@ -9,6 +9,7 @@ import {
   FETCH_MANUFACTURERS_FAILURE,
   SIGNUP_FAILURE,
   LOGIN_FAILURE,
+  CLEAR_ERRORS,
 } from '../actions/types';
 
 const errorsReducer = (state = {}, action) => {
@@ -53,6 +54,8 @@ const errorsReducer = (state = {}, action) => {
       return {
         loginError: action.payload,
       };
+    case CLEAR_ERRORS:
+      return {};
     default:
       return state;
   }

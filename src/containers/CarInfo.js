@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-alert */
 import React, { useState, useEffect } from 'react';

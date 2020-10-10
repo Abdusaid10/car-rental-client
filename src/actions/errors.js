@@ -10,6 +10,7 @@ import {
   FETCH_MANUFACTURERS_FAILURE,
   SIGNUP_FAILURE,
   LOGIN_FAILURE,
+  CLEAR_ERRORS,
 } from './types';
 
 export const addCarFailure = error => ({
@@ -65,4 +66,8 @@ export const loginFailure = error => ({
 export const singupFailure = e => ({
   type: SIGNUP_FAILURE,
   payload: e,
+});
+
+export const clearErrors = () => ({
+  type: CLEAR_ERRORS,
 });

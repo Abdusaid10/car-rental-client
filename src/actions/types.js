@@ -39,7 +39,7 @@ export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
 export const SUCCESS = 'SUCCESS';
 export const ERROR = 'ERROR';
-export const CLEAR = 'CLEAR';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 export const FETCH_BOOKINGS_REQUEST = 'FETCH_BOOKINGS_REQUEST';
 export const FETCH_BOOKINGS_SUCCESS = 'FETCH_BOOKINGS_SUCCESS';
