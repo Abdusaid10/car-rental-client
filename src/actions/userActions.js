@@ -16,11 +16,6 @@ const loginSuccess = user => ({
   payload: user,
 });
 
-const loginFailure = error => ({
-  type: LOGIN_FAILURE,
-  payload: error,
-});
-
 const success = message => ({
   type: SUCCESS,
   payload: message,
@@ -54,11 +49,6 @@ const signupSuccess = user => ({
   payload: user,
 });
 
-const singupFailure = e => ({
-  type: SIGNUP_FAILURE,
-  payload: e,
-});
-
 export const signup = (user, history) => dispatch => {
   axios.post(`${BASE_URL}/users`, { user })
     .then(response => {
@@ -78,11 +68,6 @@ export const signup = (user, history) => dispatch => {
 const bookCarSuccess = data => ({
   type: BOOK_CAR_SUCCESS,
   payload: data,
-});
-
-const bookCarFailure = error => ({
-  type: BOOK_CAR_FAILURE,
-  payload: error,
 });
 
 export const bookCar = data => dispatch => {

@@ -11,7 +11,6 @@ import {
 const initialState = {
   token: '',
   logged_in: false,
-  errors: '',
 };
 
 const authReducer = (state = initialState, action) => {
@@ -22,7 +21,6 @@ const authReducer = (state = initialState, action) => {
       return {
         token: action.payload.auth_token,
         logged_in: true,
-        errors: '',
       };
     case LOGIN_FAILURE:
     case SIGNUP_FAILURE:
@@ -30,7 +28,6 @@ const authReducer = (state = initialState, action) => {
       return {
         token: '',
         logged_in: false,
-        errors: action.payload,
       };
     default:
       return state;

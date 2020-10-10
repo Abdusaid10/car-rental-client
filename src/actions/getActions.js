@@ -25,11 +25,6 @@ const fetchCarsSuccess = payload => ({
   payload,
 });
 
-const fetchCarsFailure = error => ({
-  type: FETCH_CARS_FAILURE,
-  payload: error,
-});
-
 export const fetchCars = () => dispatch => {
   dispatch(fetchCarsRequest());
   getCars()
@@ -50,10 +45,7 @@ const fetchCarInfoSuccess = car => ({
   payload: car,
 });
 
-const fetchCarInfoFailure = error => ({
-  type: FETCH_CAR_INFO_FAILURE,
-  payload: error,
-});
+
 
 const fetchCategoriesRequest = () => ({
   type: FETCH_CATEGORIES_REQUEST,
@@ -64,10 +56,6 @@ const fetchCategoriesSuccess = categories => ({
   payload: categories,
 });
 
-const fetchCategoriesFailure = error => ({
-  type: FETCH_CATEGORIES_FAILURE,
-  payload: error,
-});
 
 export const fetchCategories = () => dispatch => {
   dispatch(fetchCategoriesRequest());
@@ -87,10 +75,6 @@ const fetchManufacturersSuccess = manufacturers => ({
   payload: manufacturers,
 });
 
-const fetchManufacturersFailure = error => ({
-  type: FETCH_MANUFACTURERS_FAILURE,
-  payload: error,
-});
 
 export const fetchManufacturers = () => dispatch => {
   dispatch(fetchManufacturersRequest());

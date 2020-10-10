@@ -15,11 +15,6 @@ const addCarSuccess = car => ({
   payload: car,
 });
 
-const addCarFailure = error => ({
-  type: ADD_CAR_FAILURE,
-  payload: error,
-});
-
 export const addCarAction = car => dispatch => {
   dispatch(addCarSuccess());
   addCar(car)
@@ -37,10 +32,6 @@ const addCategorySuccess = data => ({
   payload: data,
 });
 
-const addCategoryFailure = error => ({
-  type: ADD_CATEGORY_FAILURE,
-  payload: error,
-});
 
 export const addCategoryAction = category => dispatch => {
   addCategory(category)
@@ -55,11 +46,6 @@ export const addCategoryAction = category => dispatch => {
 const addManufacturerSuccess = manufacturer => ({
   type: ADD_MANUFACTURER_SUCCESS,
   payload: manufacturer,
-});
-
-const addManufacturerFailure = error => ({
-  type: ADD_MANUFACTURER_FAILURE,
-  payload: error,
 });
 
 export const addManufacturerAction = manufacturer => dispatch => {
