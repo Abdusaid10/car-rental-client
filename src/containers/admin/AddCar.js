@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { fetchCars, fetchCategories, fetchManufacturers } from '../../actions/getActions';
 import { addCarAction } from '../../actions/adminActions';
+import { addCarFailure } from '../../actions/errors';
 
 const AddCar = ({
   categories,
@@ -23,13 +24,21 @@ const AddCar = ({
     year: '',
   };
 
+  const dispatch = useDispatch();
+  const [data, setData] = useState(initialState);
+  const [img, setImage] = useState({ image: '' });
+  const [addCarError, setAddCarError] = useState(null);
+  const errors = useSelector(store => store.errors);
+
+  useEffect(() => {
+    dispatch(addCarFailure());
+  }, [errors]);
+
   useEffect(() => {
     fetchCategories();
     fetchManufacturers();
   }, [fetchCategories, fetchManufacturers]);
 
-  const [data, setData] = useState(initialState);
-  const [img, setImage] = useState({ image: '' });
   const {
     manufacturer_id,
     category_id,
@@ -80,7 +89,7 @@ const AddCar = ({
         Add a new car
       </span>
       <form className="form-container" onSubmit={handleSubmit} onChange={handleChange}>
-        <select className="form-item" name="manufacturer_id">
+        <select className="form-item" name="manufacturer_id" required>
           <option selected disabled>Manufacturer</option>
           {
             manufacturers.map(man => (
@@ -88,7 +97,7 @@ const AddCar = ({
             ))
           }
         </select>
-        <select className="form-item" name="category_id">
+        <select className="form-item" name="category_id" required>
           <option selected disabled>Category</option>
           {
             categories.map(cat => (
@@ -102,6 +111,7 @@ const AddCar = ({
           name="model"
           placeholder="Car model"
           onChange={handleChange}
+          required
         />
         <input
           className="form-item"
@@ -116,6 +126,7 @@ const AddCar = ({
           name="year"
           placeholder="Year"
           onChange={handleChange}
+          required
         />
         <input
           className="form-item"
@@ -123,6 +134,7 @@ const AddCar = ({
           name="price"
           placeholder="price"
           onChange={handleChange}
+          required
         />
         <select className="form-item" name="status">
           <option value="Available">Available</option>
@@ -130,7 +142,7 @@ const AddCar = ({
         </select>
         <label className="form-item" htmlFor="images">
           <span className="form-item">Add image</span>
-          <input type="file" name="image" accept="image/*" multiple onChange={onImageChange} />
+          <input type="file" name="image" accept="image/*" multiple onChange={onImageChange} required />
         </label>
         <textarea name="description" rows="4" cols="30" value={description} placeholder="Enter text here..." onChange={handleChange} />
         <input className="btn btn-primary form-item" type="submit" value="Add Car" />
