@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { loginUser } from '../actions/userActions';
@@ -11,10 +11,14 @@ const Login = () => {
     password: '',
   };
   const history = useHistory();
-
+  const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
   const [data, setData] = useState(initialState);
+  const [loginError, setLoginError] = useState(null);
 
+  useEffect(() => {
+    setLoginError(errors.loginError);
+  });
   const {
     email,
     password,
@@ -34,8 +38,8 @@ const Login = () => {
       email,
       password,
     };
-
-    loginUser({ user }, history)(dispatch);
+    setLoginError(null);
+    loginUser(user, history)(dispatch);
     setData(initialState);
     e.target.reset();
   };
