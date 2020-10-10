@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
+import jwt_decode from 'jwt-decode';
 import CarsList from '../containers/CarsList';
 import { logoutUser } from '../actions/userActions';
 import Login from '../containers/Login';
@@ -22,12 +23,15 @@ import '../styles/carInfo.css';
 import '../styles/CarsList.css';
 
 const App = () => {
-  const logStat = useSelector(store => store.authReducer.logged_in);
+  const logStat = useSelector(store => store.authReducer.loggedIn);
+  const token = useSelector(store => store.authReducer.token);
+  // console.log('token app:', typeof token);
+  // console.log('decode token: ', jwt_decode(token.toString(), { payload: true }));
   const user = useSelector(store => store.authReducer.user);
   const history = useHistory();
   const dispatch = useDispatch();
   const handleLogout = () => {
-    logoutUser(history)(dispatch);
+    logoutUser()(dispatch);
   };
 
   // const isLoggedinUserAdmin = () => {

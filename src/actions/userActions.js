@@ -1,15 +1,14 @@
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 import {
   LOGIN_SUCCESS,
-  LOGIN_FAILURE,
   SIGNUP_SUCCESS,
-  SIGNUP_FAILURE,
   SUCCESS,
   LOGOUT,
   BOOK_CAR_SUCCESS,
-  BOOK_CAR_FAILURE,
   BASE_URL,
 } from './types';
+import { bookCarFailure, loginFailure, singupFailure } from './errors';
 
 const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
@@ -28,20 +27,21 @@ const logoutAction = () => ({
 export const loginUser = (user, history) => dispatch => {
   axios.post(`${BASE_URL}/login`, user)
     .then(response => {
-      console.log(response.data);
-      if (response.data.auth_token) {
-        dispatch(loginSuccess(response.data));
-        history.push('/');
-      }
+      console.log('response log', response.data);
+      console.log('response log', response.data.auth_token);
+      console.log('some action', jwt_decode(response.data.auth_token, {payload: true}));
+
+      dispatch(loginSuccess(response.data));
+      history.push('/');
     })
     .catch(e => {
       dispatch(loginFailure(e));
     });
 };
 
-export const logoutUser = history => dispatch => {
+export const logoutUser = () => dispatch => {
   dispatch(logoutAction());
-  history.push('/');
+  localStorage.removeItem('token');
 };
 
 const signupSuccess = user => ({
