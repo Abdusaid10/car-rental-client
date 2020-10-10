@@ -1,6 +1,5 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-alert */
-/* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { withRouter, useParams } from 'react-router';
@@ -11,7 +10,7 @@ import { isValidateDate } from '../helpers/carInfoHelper';
 
 const CarInfo = ({ car }) => {
   const { id } = useParams();
-  const logStat = useSelector(store => store.authReducer.logged_in);
+  const logStat = useSelector(store => store.authReducer.loggedIn);
   const user = useSelector(store => store.authReducer.user);
 
   const dispatch = useDispatch();

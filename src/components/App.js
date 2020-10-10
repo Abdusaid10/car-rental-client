@@ -1,12 +1,9 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable camelcase */
 import React from 'react';
 import {
   BrowserRouter as Router, Link, Switch, Route,
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect, useHistory } from 'react-router';
-import jwt_decode from 'jwt-decode';
+import { Redirect } from 'react-router';
 import CarsList from '../containers/CarsList';
 import { logoutUser } from '../actions/userActions';
 import Login from '../containers/Login';
@@ -24,26 +21,11 @@ import '../styles/CarsList.css';
 
 const App = () => {
   const logStat = useSelector(store => store.authReducer.loggedIn);
-  const token = useSelector(store => store.authReducer.token);
-  // console.log('token app:', typeof token);
-  // console.log('decode token: ', jwt_decode(token.toString(), { payload: true }));
   const user = useSelector(store => store.authReducer.user);
-  const history = useHistory();
   const dispatch = useDispatch();
   const handleLogout = () => {
     logoutUser()(dispatch);
   };
-
-  // const isLoggedinUserAdmin = () => {
-  //   if (logStat && user.amdin) {
-  //     console.log('admin log true', logStat);
-  //     console.log('admin log true', user.amdin);
-  //     return true;
-  //   }
-  //     console.log('admin log true', logStat);
-  //     console.log('admin log true', user.amdin);
-  //   return false;
-  // };
 
   return (
     <div className="App">
