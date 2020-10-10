@@ -1,14 +1,11 @@
-import {
-  addCar, addCategory, addManufacturer,
-} from '../api-services/services';
+import axios from 'axios';
 import {
   ADD_CAR_SUCCESS,
-  ADD_CAR_FAILURE,
   ADD_CATEGORY_SUCCESS,
-  ADD_CATEGORY_FAILURE,
-  ADD_MANUFACTURER_FAILURE,
   ADD_MANUFACTURER_SUCCESS,
+  BASE_URL,
 } from './types';
+import { addCarFailure, addCategoryFailure, addManufacturerFailure } from './errors';
 
 const addCarSuccess = car => ({
   type: ADD_CAR_SUCCESS,
@@ -17,7 +14,7 @@ const addCarSuccess = car => ({
 
 export const addCarAction = car => dispatch => {
   dispatch(addCarSuccess());
-  addCar(car)
+  axios.post(`${BASE_URL}/cars`, car)
     .then(() => {
       // eslint-disable-next-line no-console
       console.log('Car added', car);
@@ -32,9 +29,8 @@ const addCategorySuccess = data => ({
   payload: data,
 });
 
-
 export const addCategoryAction = category => dispatch => {
-  addCategory(category)
+  axios.post(`${BASE_URL}/categories`, category)
     .then(response => {
       // eslint-disable-next-line no-console
       console.log('category created');
@@ -50,7 +46,7 @@ const addManufacturerSuccess = manufacturer => ({
 
 export const addManufacturerAction = manufacturer => dispatch => {
   dispatch(addManufacturerSuccess());
-  addManufacturer(manufacturer)
+  axios.post(`${BASE_URL}/manufacturers`, manufacturer)
     .then(() => {
       addManufacturerSuccess(manufacturer);
     })

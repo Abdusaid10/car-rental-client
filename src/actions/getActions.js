@@ -1,20 +1,21 @@
-import {
-  getCars, getCar, getCategories, getManufacturers,
-} from '../api-services/services';
+import axios from 'axios';
 import {
   FETCH_CARS_REQUEST,
   FETCH_CARS_SUCCESS,
-  FETCH_CARS_FAILURE,
   FETCH_CAR_INFO_REQUEST,
   FETCH_CAR_INFO_SUCCESS,
-  FETCH_CAR_INFO_FAILURE,
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
-  FETCH_CATEGORIES_FAILURE,
   FETCH_MANUFACTURERS_REQUEST,
   FETCH_MANUFACTURERS_SUCCESS,
-  FETCH_MANUFACTURERS_FAILURE,
+  BASE_URL,
 } from './types';
+import {
+  fetchCarsFailure,
+  fetchCarInfoFailure,
+  fetchCategoriesFailure,
+  fetchManufacturersFailure,
+} from './errors';
 
 const fetchCarsRequest = () => ({
   type: FETCH_CARS_REQUEST,
@@ -27,7 +28,7 @@ const fetchCarsSuccess = payload => ({
 
 export const fetchCars = () => dispatch => {
   dispatch(fetchCarsRequest());
-  getCars()
+  axios.get(`${BASE_URL}/cars`)
     .then(response => {
       dispatch(fetchCarsSuccess(response.data));
     })
@@ -45,8 +46,6 @@ const fetchCarInfoSuccess = car => ({
   payload: car,
 });
 
-
-
 const fetchCategoriesRequest = () => ({
   type: FETCH_CATEGORIES_REQUEST,
 });
@@ -56,10 +55,9 @@ const fetchCategoriesSuccess = categories => ({
   payload: categories,
 });
 
-
 export const fetchCategories = () => dispatch => {
   dispatch(fetchCategoriesRequest());
-  getCategories()
+  axios.get(`${BASE_URL}/categories`)
     .then(response => {
       dispatch(fetchCategoriesSuccess(response.data));
     })
@@ -75,10 +73,9 @@ const fetchManufacturersSuccess = manufacturers => ({
   payload: manufacturers,
 });
 
-
 export const fetchManufacturers = () => dispatch => {
   dispatch(fetchManufacturersRequest());
-  getManufacturers()
+  axios.get(`${BASE_URL}/manufacturers`)
     .then(response => {
       console.log('manfuc', response.data);
       dispatch(fetchManufacturersSuccess(response.data));
@@ -88,7 +85,7 @@ export const fetchManufacturers = () => dispatch => {
 
 export const fetchCarInfo = id => dispatch => {
   dispatch(fetchCarInfoRequest());
-  getCar(id)
+  axios.get(`${BASE_URL}/cars/${id}`)
     .then(response => {
       dispatch(fetchCarInfoSuccess(response.data));
       dispatch(fetchCategories());

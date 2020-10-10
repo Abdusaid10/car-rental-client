@@ -1,8 +1,7 @@
-import { FETCH_CARS_REQUEST, FETCH_CARS_SUCCESS, FETCH_CARS_FAILURE } from '../actions/types';
+import { FETCH_CARS_REQUEST, FETCH_CARS_SUCCESS } from '../actions/types';
 
 const initialState = {
   cars: [],
-  error: '',
 };
 
 const fetchCarsReducer = (state = initialState, action) => {
@@ -15,12 +14,6 @@ const fetchCarsReducer = (state = initialState, action) => {
       return {
         ...state,
         cars: action.payload,
-        error: '',
-      };
-    case FETCH_CARS_FAILURE:
-      return {
-        cars: [],
-        error: action.payload,
       };
     default:
       return state;

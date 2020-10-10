@@ -3,7 +3,8 @@ import fetchCarsReducer from './fetchCars';
 import fetchCategoriesReducer from './fetchCategories';
 import fetchManufacturers from './fetchManufacturers';
 import fetchCarInfoReducer from './fetchCarInfo';
-import authReducer from './usersReducer';
+import authReducer from './userAuthReducer';
+import errorsReducer from './errors';
 
 const reducer = combineReducers({
   carsList: fetchCarsReducer,
@@ -11,6 +12,7 @@ const reducer = combineReducers({
   manufacturersList: fetchManufacturers,
   carInfo: fetchCarInfoReducer,
   authReducer,
+  errors: errorsReducer,
 });
 
 export default reducer;

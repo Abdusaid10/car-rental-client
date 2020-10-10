@@ -40,7 +40,7 @@ const Signup = () => {
       password_confirmation,
     };
 
-    signup({ user }, history)(dispatch);
+    signup(user, history)(dispatch);
 
     setData(initialState);
     e.target.reset();
