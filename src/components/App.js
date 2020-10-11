@@ -12,6 +12,7 @@ import AddCar from '../containers/admin/AddCar';
 import AddCategory from '../containers/admin/AddCategory';
 import AddManufacturer from '../containers/admin/AddManufacturer';
 import CarInfo from '../containers/CarInfo';
+import BookingsList from '../containers/BookingsList';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/reset.css';
 import '../styles/App.css';
@@ -45,7 +46,10 @@ const App = () => {
                       <Link to="/logout" className="nav-links" onClick={handleLogout}>Logout</Link>
                     </>
                   ) : (
-                    <Link to="/logout" className="nav-links" onClick={handleLogout}>Logout</Link>
+                    <>
+                      <Link to="/bookings" className="nav-links">Bookings</Link>
+                      <Link to="/logout" className="nav-links" onClick={handleLogout}>Logout</Link>
+                    </>
                   )
                 }
               </>
@@ -102,6 +106,9 @@ const App = () => {
                 <Redirect to="/" />
               )
             }
+          </Route>
+          <Route exact path="/bookings">
+            <BookingsList />
           </Route>
           <Route exact path="/logout">
             <Redirect to="/" />

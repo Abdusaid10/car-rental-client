@@ -110,8 +110,9 @@ export const fetchBookingsSuccess = data => ({
 
 export const fetchBookings = () => dispatch => {
   dispatch(fetchBookingsRequest());
-  axios.get(`${BASE_URL}/bookings`, { withCredentials: true })
+  axios.get(`${BASE_URL}/bookings`)
     .then(response => {
+      console.log('bookings', response.data);
       dispatch(fetchBookingsSuccess(response.data));
     })
     .catch(e => dispatch(fetchBookingsFailure(e.message)));
