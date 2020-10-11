@@ -5,7 +5,7 @@ const convertDate = date => {
   return { year, month, day };
 };
 
-export const isValidateDate = (startDate, endDate) => {
+export const isValidDate = (startDate, endDate) => {
   const syear = convertDate(startDate).year;
   const smonth = convertDate(startDate).month;
   const sday = convertDate(startDate).day;

@@ -3,18 +3,26 @@
 /* eslint-disable no-alert */
 import React, { useState, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { withRouter, useParams } from 'react-router';
+import { withRouter, useParams, useHistory } from 'react-router';
 import PropTypes from 'prop-types';
+import {
+  Button, Alert, Form, Col, Row,
+} from 'react-bootstrap';
 import { fetchCarInfo } from '../actions/getActions';
 import { bookCar } from '../actions/userActions';
-import { isValidateDate } from '../helpers/carInfoHelper';
+import { isValidDate } from '../helpers/carInfoHelper';
+import '../styles/carInfo.css';
 
 const CarInfo = ({ car }) => {
   const { id } = useParams();
-  const logStat = useSelector(store => store.authReducer.loggedIn);
+  const loggedIn = useSelector(store => store.authReducer.loggedIn);
   const user = useSelector(store => store.authReducer.user);
-
+  const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
+  const history = useHistory();
+  // const [validDate, setValidDate] = useState(false);
+  const [validated, setValidated] = useState(false);
+  const [bookingError, setBookingError] = useState(null);
 
   const date = new Date();
   let day = date.getDate();
@@ -25,7 +33,7 @@ const CarInfo = ({ car }) => {
   const today = `${year}-${month}-${day}`;
 
   const initialState = {
-    user_id: logStat ? user.id : null,
+    user_id: loggedIn ? user.user_id : null,
     car_id: car.id,
     start_date: today,
     end_date: '',
@@ -43,9 +51,12 @@ const CarInfo = ({ car }) => {
     fetchCarInfo(parseInt(id, 10))(dispatch);
   }, [id, dispatch]);
 
+  useEffect(() => {
+    setBookingError(errors.bookingError);
+  }, [errors]);
+
   const handleBookingChange = e => {
     const { name, value } = e.target;
-
     setBookingData({
       ...bookingData,
       [name]: value,
@@ -60,18 +71,20 @@ const CarInfo = ({ car }) => {
       start_date,
       end_date,
     };
+    const form = e.currentTarget;
 
-    if (logStat) {
-      if (isValidateDate(start_date, end_date)) {
-        // eslint-disable-next-line no-console
-        console.log('booking data', booking);
-        alert('Car booked Successfully');
+    if (loggedIn) {
+      if (form.checkValidity() === false) {
+        e.stopPropagation();
+      }
+      if (isValidDate(start_date, end_date)) {
+        // setValidDate(true);
+        console.log('booking', booking);
         bookCar(booking)(dispatch);
-      } else {
-        alert('You have entered not valid dates');
+        setValidated(true);
       }
     } else {
-      alert('You need to loggin to book a car');
+      history.push('/login');
     }
   };
 
@@ -125,19 +138,57 @@ const CarInfo = ({ car }) => {
               <h3 id="bookCarHeader">
                 Book car
               </h3>
-              <form className="booking-form" onSubmit={handleBookingSubmit}>
-                <input type="hidden" name="user_id" value={user_id} />
-                <input type="hidden" name="car_id" value={car_id} />
-                <label htmlFor="start-date">
-                  <span id="startDate">Start Date</span>
-                  <input type="date" id="start-date" name="start_date" min={today} value={start_date} onChange={handleBookingChange} />
-                </label>
-                <label htmlFor="end-date">
-                  <span id="endDate">End Date</span>
-                  <input type="date" id="end-date" name="end_date" min={today} value={end_date} onChange={handleBookingChange} />
-                </label>
-                <input id="bookCarBtn" type="submit" value="Book car" />
-              </form>
+              <Form
+                noValidate
+                validated={validated}
+                onSubmit={handleBookingSubmit}
+                onChange={handleBookingChange}
+              >
+                <Col>
+                  <Form.Control
+                    required
+                    type="hidden"
+                    name="user_id"
+                    value={user_id}
+                  />
+                  <Form.Control
+                    required
+                    type="hidden"
+                    name="car_id"
+                    value={car_id}
+                  />
+                  <Form.Group as={Row} controlId="validationCustom01">
+                    <Form.Label as={Col} md="4">Start Date</Form.Label>
+                    <Col md="6">
+                      <Form.Control
+                        required
+                        type="date"
+                        name="start_date"
+                        min={today}
+                        defaultValue={start_date}
+                        onChange={handleBookingChange}
+                      />
+                    </Col>
+                  </Form.Group>
+                  <Form.Group as={Row} controlId="validationCustom01">
+                    <Form.Label as={Col} md="4">End Date</Form.Label>
+                    <Col md="6">
+                      <Form.Control
+                        required
+                        type="date"
+                        name="end_date"
+                        min={today}
+                        value={end_date}
+                        onChange={handleBookingChange}
+                      />
+                    </Col>
+                  </Form.Group>
+                  <Button variant="primary" type="submit">Book car</Button>
+                </Col>
+              </Form>
+              {
+                bookingError && (<Alert variant="danger">{bookingError}</Alert>)
+              }
             </div>
           </div>
         ) : (

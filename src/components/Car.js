@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
+import Button from 'react-bootstrap/Button';
 
 const Car = ({ car }) => {
   const history = useHistory();
@@ -34,7 +35,12 @@ const Car = ({ car }) => {
             </span>
           </div>
         </div>
-        <button type="button" id="detailsBtn" onClick={() => displayCar(car.id)} onKeyDown={() => displayCar(car.id)}>See Deatils</button>
+        <Button
+          onClick={() => displayCar(car.id)}
+          onKeyDown={() => displayCar(car.id)}
+        >
+          See Deatils
+        </Button>
       </div>
     </div>
   );

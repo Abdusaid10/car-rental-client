@@ -1,5 +1,7 @@
 import axios from 'axios';
 import {
+  FETCH_BOOKINGS_REQUEST,
+  FETCH_BOOKINGS_SUCCESS,
   FETCH_CARS_REQUEST,
   FETCH_CARS_SUCCESS,
   FETCH_CAR_INFO_REQUEST,
@@ -11,6 +13,7 @@ import {
   BASE_URL,
 } from './types';
 import {
+  fetchBookingsFailure,
   fetchCarsFailure,
   fetchCarInfoFailure,
   fetchCategoriesFailure,
@@ -94,4 +97,22 @@ export const fetchCarInfo = id => dispatch => {
     .catch(error => {
       dispatch(fetchCarInfoFailure(error.message));
     });
+};
+
+export const fetchBookingsRequest = () => ({
+  type: FETCH_BOOKINGS_REQUEST,
+});
+
+export const fetchBookingsSuccess = data => ({
+  type: FETCH_BOOKINGS_SUCCESS,
+  payload: data,
+});
+
+export const fetchBookings = () => dispatch => {
+  dispatch(fetchBookingsRequest());
+  axios.get(`${BASE_URL}/bookings`, { withCredentials: true })
+    .then(response => {
+      dispatch(fetchBookingsSuccess(response.data));
+    })
+    .catch(e => dispatch(fetchBookingsFailure(e.message)));
 };

@@ -65,8 +65,15 @@ const bookCarSuccess = data => ({
   payload: data,
 });
 
-export const bookCar = data => dispatch => {
-  axios.post(`${BASE_URL}/bookings`, data)
+export const bookCar = booking => dispatch => {
+  const token = localStorage.getItem('token');
+  console.log('toke', token);
+  axios.post(`${BASE_URL}/bookings`, booking,
+    {
+      headers: {
+        Authorization: token,
+      },
+    })
     .then(response => {
       if (response.data.status === 'created') {
         dispatch(bookCarSuccess(response.data));

@@ -12,11 +12,11 @@ import AddCar from '../containers/admin/AddCar';
 import AddCategory from '../containers/admin/AddCategory';
 import AddManufacturer from '../containers/admin/AddManufacturer';
 import CarInfo from '../containers/CarInfo';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/reset.css';
 import '../styles/App.css';
-import '../styles/form.css';
+// import '../styles/form.css';
 import '../styles/carListing.css';
-import '../styles/carInfo.css';
 import '../styles/CarsList.css';
 
 const App = () => {
