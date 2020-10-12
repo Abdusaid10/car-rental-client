@@ -13,7 +13,6 @@ const fetchBookingsReducer = (state = initialState, action) => {
         loading: true,
       };
     case FETCH_BOOKINGS_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         loading: false,

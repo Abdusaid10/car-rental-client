@@ -80,7 +80,6 @@ export const fetchManufacturers = () => dispatch => {
   dispatch(fetchManufacturersRequest());
   axios.get(`${BASE_URL}/manufacturers`)
     .then(response => {
-      console.log('manfuc', response.data);
       dispatch(fetchManufacturersSuccess(response.data));
     })
     .catch(error => dispatch(fetchManufacturersFailure(error.message)));
@@ -112,7 +111,6 @@ export const fetchBookings = () => dispatch => {
   dispatch(fetchBookingsRequest());
   axios.get(`${BASE_URL}/bookings`)
     .then(response => {
-      console.log('bookings', response.data);
       dispatch(fetchBookingsSuccess(response.data));
     })
     .catch(e => dispatch(fetchBookingsFailure(e.message)));

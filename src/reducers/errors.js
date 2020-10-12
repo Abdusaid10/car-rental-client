@@ -60,15 +60,15 @@ const errorsReducer = (state = {}, action) => {
     case REMOVE_CAR_FAILURE:
       return {
         removeCarError: action.payload,
-      }
+      };
     case REMOVE_CATEGORY_FAILURE:
       return {
         removeCategoryError: action.payload,
-      }
+      };
     case REMOVE_MANUFACTURER_FAILURE:
       return {
         removeManufacturerError: action.payload,
-      }
+      };
     case CLEAR_ERRORS:
       return {};
     default:
