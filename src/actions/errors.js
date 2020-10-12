@@ -10,6 +10,9 @@ import {
   FETCH_MANUFACTURERS_FAILURE,
   SIGNUP_FAILURE,
   LOGIN_FAILURE,
+  REMOVE_CAR_FAILURE,
+  REMOVE_CATEGORY_FAILURE,
+  REMOVE_MANUFACTURER_FAILURE,
   CLEAR_ERRORS,
 } from './types';
 
@@ -65,6 +68,21 @@ export const loginFailure = error => ({
 
 export const singupFailure = e => ({
   type: SIGNUP_FAILURE,
+  payload: e,
+});
+
+export const removeCarError = e => ({
+  type: REMOVE_CAR_FAILURE,
+  payload: e,
+});
+
+export const removeCategoryError = e => ({
+  type: REMOVE_CATEGORY_FAILURE,
+  payload: e,
+});
+
+export const removeManufacturerError = e => ({
+  type: REMOVE_MANUFACTURER_FAILURE,
   payload: e,
 });
 

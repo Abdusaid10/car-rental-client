@@ -9,6 +9,9 @@ import {
   FETCH_MANUFACTURERS_FAILURE,
   SIGNUP_FAILURE,
   LOGIN_FAILURE,
+  REMOVE_CAR_FAILURE,
+  REMOVE_CATEGORY_FAILURE,
+  REMOVE_MANUFACTURER_FAILURE,
   CLEAR_ERRORS,
 } from '../actions/types';
 
@@ -54,6 +57,18 @@ const errorsReducer = (state = {}, action) => {
       return {
         loginError: action.payload,
       };
+    case REMOVE_CAR_FAILURE:
+      return {
+        removeCarError: action.payload,
+      }
+    case REMOVE_CATEGORY_FAILURE:
+      return {
+        removeCategoryError: action.payload,
+      }
+    case REMOVE_MANUFACTURER_FAILURE:
+      return {
+        removeManufacturerError: action.payload,
+      }
     case CLEAR_ERRORS:
       return {};
     default:
