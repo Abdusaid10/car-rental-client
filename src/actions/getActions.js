@@ -107,11 +107,17 @@ export const fetchBookingsSuccess = data => ({
   payload: data,
 });
 
-export const fetchBookings = () => dispatch => {
+export const fetchBookings = userId => dispatch => {
+  const token = localStorage.getItem('token');
   dispatch(fetchBookingsRequest());
-  axios.get(`${BASE_URL}/bookings`)
+  axios.get(`${BASE_URL}/users/${userId}`,
+    {
+      headers: {
+        Authorization: token,
+      },
+    })
     .then(response => {
-      dispatch(fetchBookingsSuccess(response.data));
+      dispatch(fetchBookingsSuccess(response.data.bookings));
     })
     .catch(e => dispatch(fetchBookingsFailure(e.message)));
 };

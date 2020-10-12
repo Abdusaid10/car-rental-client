@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchBookings } from '../actions/getActions';
 import Booking from '../components/Booking';
 
 const BookingsList = ({ bookings, fetchBookings }) => {
+  const user = useSelector(store => store.authReducer.user);
   useEffect(() => {
-    fetchBookings();
+    fetchBookings(user.user_id);
   }, [fetchBookings]);
-
   return (
     <div>
       {
-        bookings && bookings.map(booking => (
-          <Booking key={booking} booking={booking} />
-        ))
+        bookings && bookings
+          .map(booking => (
+            <Booking key={booking} booking={booking} />
+          ))
       }
     </div>
   );
@@ -32,7 +33,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchBookings: () => dispatch(fetchBookings()),
+  fetchBookings: userId => dispatch(fetchBookings(userId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookingsList);
