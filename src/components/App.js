@@ -13,6 +13,7 @@ import AddCategory from '../containers/admin/AddCategory';
 import AddManufacturer from '../containers/admin/AddManufacturer';
 import CarInfo from '../containers/CarInfo';
 import BookingsList from '../containers/BookingsList';
+import Manufacturers from '../containers/Manufacturers';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/reset.css';
 import '../styles/App.css';
@@ -21,7 +22,7 @@ import '../styles/carListing.css';
 import '../styles/CarsList.css';
 
 const App = () => {
-  const logStat = useSelector(store => store.authReducer.loggedIn);
+  const loggedIn = useSelector(store => store.authReducer.loggedIn);
   const user = useSelector(store => store.authReducer.user);
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -35,7 +36,7 @@ const App = () => {
         <div className="nav-links-container">
           <Link to="/" className="nav-links">Home</Link>
           {
-            logStat ? (
+            loggedIn ? (
               <>
                 {
                   user.admin ? (
@@ -43,6 +44,7 @@ const App = () => {
                       <Link to="/add_car" className="nav-links">Add Car</Link>
                       <Link to="/add_category" className="nav-links">Add Category</Link>
                       <Link to="/add_manufacturer" className="nav-links">Add Manufacturer</Link>
+                      <Link to="/manufacturers" className="nav-links">Manufacturers</Link>
                       <Link to="/logout" className="nav-links" onClick={handleLogout}>Logout</Link>
                     </>
                   ) : (
@@ -76,7 +78,7 @@ const App = () => {
           </Route>
           <Route path="/add_car">
             {
-              logStat ? (
+              loggedIn ? (
                 <>
                   { user.admin ? (<AddCar />) : <Redirect to="/" /> }
                 </>
@@ -87,7 +89,7 @@ const App = () => {
           </Route>
           <Route exact path="/add_category">
             {
-              logStat ? (
+              loggedIn ? (
                 <>
                   { user.admin ? (<AddCategory />) : <Redirect to="/" /> }
                 </>
@@ -98,7 +100,7 @@ const App = () => {
           </Route>
           <Route exact path="/add_manufacturer">
             {
-              logStat ? (
+              loggedIn ? (
                 <>
                   { user.admin ? (<AddManufacturer />) : <Redirect to="/" /> }
                 </>
@@ -108,7 +110,18 @@ const App = () => {
             }
           </Route>
           <Route exact path="/bookings">
-            <BookingsList />
+            {
+              user && (<BookingsList />)
+            }
+          </Route>
+          <Route exact path="/manufacturers">
+            {
+              user && (
+                <>
+                  {user.admin ? (<Booknigs />) : null }
+                </>
+              )
+            }
           </Route>
           <Route exact path="/logout">
             <Redirect to="/" />

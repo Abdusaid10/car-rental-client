@@ -1,12 +1,15 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 import Button from 'react-bootstrap/Button';
 
-const Car = ({ car }) => {
+const Car = ({ car, removeCar }) => {
   const history = useHistory();
   const displayCar = id => history.push(`/cars/${id}`);
+  const loggedIn = useSelector(store => store.authReducer.loggedIn);
+  const user = useSelector(store => store.authReducer.user);
 
   return (
     <div className="car-listing-container">
@@ -41,6 +44,10 @@ const Car = ({ car }) => {
         >
           See Deatils
         </Button>
+        {
+          user && 
+            user.admin ? (<Button variant="secondary" onClick={removeCar}>Remove</Button>) : null
+        }
       </div>
     </div>
   );
@@ -48,6 +55,7 @@ const Car = ({ car }) => {
 
 Car.propTypes = {
   car: PropTypes.instanceOf(Object).isRequired,
+  removeCar: PropTypes.func.isRequired,
 };
 
 export default Car;
