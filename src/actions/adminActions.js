@@ -4,23 +4,39 @@ import {
   ADD_CATEGORY_SUCCESS,
   ADD_MANUFACTURER_SUCCESS,
   BASE_URL,
+  REMOVE_CAR_SUCCESS,
   REMOVE_CATEGORY_SUCCESS,
   REMOVE_MANUFACTURER_SUCCESS,
-} from './types';``
+} from './types';
 import { fetchCars, fetchManufacturers, fetchCategories } from './getActions';
-import { addCarFailure, addCategoryFailure, addManufacturerFailure, removeCarError, removeCategoryError, removeManufacturerError } from './errors';
+import {
+  addCarFailure,
+  addCategoryFailure,
+  addManufacturerFailure,
+  removeCarError,
+  removeCategoryError,
+  removeManufacturerError,
+} from './errors';
 
 const addCarSuccess = car => ({
   type: ADD_CAR_SUCCESS,
   payload: car,
 });
 
-export const addCarAction = car => dispatch => {
-  dispatch(addCarSuccess());
-  axios.post(`${BASE_URL}/cars`, car)
+const token = localStorage.getItem('token');
+
+const HEADERS = {
+  headers: {
+    Authorization: token,
+  },
+};
+
+export const addCarAction = (car, history) => dispatch => {
+  axios.post(`${BASE_URL}/cars`, car, HEADERS)
     .then(() => {
       // eslint-disable-next-line no-console
-      console.log('Car added', car);
+      dispatch(addCarSuccess());
+      history.push('/');
     })
     .catch(error => {
       dispatch(addCarFailure(error));
@@ -31,26 +47,25 @@ const removeCarSuccess = () => ({
   type: REMOVE_CAR_SUCCESS,
 });
 
-export const removeCar = car_id => dispatch => {
-  axios.delete(`${BASE_URL}/cars/${car_id}`)
+export const removeCar = carId => dispatch => {
+  axios.delete(`${BASE_URL}/cars/${carId}`, HEADERS)
     .then(() => {
       dispatch(removeCarSuccess());
       dispatch(fetchCars());
     })
     .catch(e => dispatch(removeCarError(e.message)));
-}
+};
 
 const addCategorySuccess = data => ({
   type: ADD_CATEGORY_SUCCESS,
   payload: data,
 });
 
-export const addCategoryAction = category => dispatch => {
-  axios.post(`${BASE_URL}/categories`, category)
+export const addCategoryAction = (category, history) => dispatch => {
+  axios.post(`${BASE_URL}/categories`, category, HEADERS)
     .then(response => {
-      // eslint-disable-next-line no-console
-      console.log('category created');
       dispatch(addCategorySuccess(response.data));
+      history.push('/categories');
     })
     .catch(error => dispatch(addCategoryFailure(error.message)));
 };
@@ -59,25 +74,26 @@ const removeCategorySuccess = () => ({
   type: REMOVE_CATEGORY_SUCCESS,
 });
 
-export const removeCategory = category_id => {
-  axios.delete(`${BASE_URL}/categories/${category_id}`)
+export const removeCategory = categoryId => dispatch => {
+  axios.delete(`${BASE_URL}/categories/${categoryId}`, HEADERS)
     .then(() => {
       dispatch(removeCategorySuccess());
       dispatch(fetchCategories());
     })
     .catch(e => dispatch(removeCategoryError(e.message)));
-}
+};
 
 const addManufacturerSuccess = manufacturer => ({
   type: ADD_MANUFACTURER_SUCCESS,
   payload: manufacturer,
 });
 
-export const addManufacturerAction = manufacturer => dispatch => {
+export const addManufacturerAction = (manufacturer, history) => dispatch => {
   dispatch(addManufacturerSuccess());
-  axios.post(`${BASE_URL}/manufacturers`, manufacturer)
+  axios.post(`${BASE_URL}/manufacturers`, manufacturer, HEADERS)
     .then(() => {
       addManufacturerSuccess(manufacturer);
+      history.push('/manufacturers');
     })
     .catch(error => dispatch(addManufacturerFailure(error.message)));
 };
@@ -86,11 +102,11 @@ const removeManufacturerSuccess = () => ({
   type: REMOVE_MANUFACTURER_SUCCESS,
 });
 
-export const removeManufacturer = maker_id => dispatch => {
-  axios.delete(`${BASE_URL}/manufacturers/${maker_id}`)
+export const removeManufacturer = makerId => dispatch => {
+  axios.delete(`${BASE_URL}/manufacturers/${makerId}`, HEADERS)
     .then(() => {
       dispatch(removeManufacturerSuccess());
       dispatch(fetchManufacturers());
     })
     .catch(e => dispatch(removeManufacturerError(e.message)));
-}
+};
