@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import { fetchCars, fetchCategories, fetchManufacturers } from '../../actions/getActions';
 import { addCarAction } from '../../actions/adminActions';
 import { addCarFailure } from '../../actions/errors';
@@ -28,6 +29,7 @@ const AddCar = ({
   const [data, setData] = useState(initialState);
   const [img, setImage] = useState({ image: '' });
   const [addCarError, setAddCarError] = useState(null);
+  const history = useHistory();
   const errors = useSelector(store => store.errors);
 
   useEffect(() => {
@@ -79,7 +81,8 @@ const AddCar = ({
     formData.append('description', description);
     formData.append('year', year);
     formData.append('image', image);
-    addCarAction(formData);
+    addCarAction(formData, history);
+    setData(initialState);
     e.target.reset();
   };
 
@@ -157,7 +160,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addCarAction: car => dispatch(addCarAction(car)),
+  addCarAction: (car, history) => dispatch(addCarAction(car, history)),
   fetchCars: () => dispatch(fetchCars()),
   fetchCategories: () => dispatch(fetchCategories()),
   fetchManufacturers: () => dispatch(fetchManufacturers()),

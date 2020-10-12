@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import { addManufacturerAction as addMaker } from '../../actions/adminActions';
 
 const AddManufacturer = ({ addMaker }) => {
@@ -8,6 +9,7 @@ const AddManufacturer = ({ addMaker }) => {
     manufacturer: '',
     about: '',
   };
+  const history = useHistory();
   const [data, setData] = useState(initialState);
   const [img, setImage] = useState({
     image: '',
@@ -44,7 +46,7 @@ const AddManufacturer = ({ addMaker }) => {
     formData.append('about', about);
     formData.append('image', image);
     formData.append('logo', logo);
-    addMaker(formData);
+    addMaker(formData, history);
     e.target.reset();
   };
 
@@ -68,7 +70,7 @@ const AddManufacturer = ({ addMaker }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addMaker: maker => dispatch(addMaker(maker)),
+  addMaker: (maker, history) => dispatch(addMaker(maker, history)),
 });
 
 AddManufacturer.propTypes = {

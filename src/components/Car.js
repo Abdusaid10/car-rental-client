@@ -8,7 +8,6 @@ import Button from 'react-bootstrap/Button';
 const Car = ({ car, removeCar }) => {
   const history = useHistory();
   const displayCar = id => history.push(`/cars/${id}`);
-  const loggedIn = useSelector(store => store.authReducer.loggedIn);
   const user = useSelector(store => store.authReducer.user);
 
   return (
@@ -45,8 +44,8 @@ const Car = ({ car, removeCar }) => {
           See Deatils
         </Button>
         {
-          user && 
-            user.admin ? (<Button variant="secondary" onClick={removeCar}>Remove</Button>) : null
+          user
+            && user.admin ? (<Button variant="secondary" onClick={() => removeCar(car.id)}>Remove</Button>) : null
         }
       </div>
     </div>

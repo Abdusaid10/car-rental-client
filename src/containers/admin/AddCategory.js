@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import { addCategoryAction as addCat } from '../../actions/adminActions';
 
 const AddCategory = ({ addCat }) => {
   const initialState = {
     category: '',
   };
+  const history = useHistory();
   const [category, setCategory] = useState(initialState);
   const { title } = category;
 
@@ -17,7 +19,7 @@ const AddCategory = ({ addCat }) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    addCat(category);
+    addCat(category, history);
     e.target.reset();
   };
 
@@ -32,7 +34,7 @@ const AddCategory = ({ addCat }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addCat: category => dispatch(addCat(category)),
+  addCat: (category, history) => dispatch(addCat(category, history)),
 });
 
 AddCategory.propTypes = {
