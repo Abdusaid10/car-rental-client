@@ -14,12 +14,13 @@ import AddManufacturer from '../containers/admin/AddManufacturer';
 import CarInfo from '../containers/CarInfo';
 import BookingsList from '../containers/BookingsList';
 import Manufacturers from '../containers/admin/Manufacturers';
+import Categories from '../containers/admin/Categories';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/reset.css';
 import '../styles/App.css';
-// import '../styles/form.css';
 import '../styles/carListing.css';
 import '../styles/CarsList.css';
+import '../styles/form.css';
 
 const App = () => {
   const loggedIn = useSelector(store => store.authReducer.loggedIn);
@@ -45,6 +46,7 @@ const App = () => {
                       <Link to="/add_category" className="nav-links">Add Category</Link>
                       <Link to="/add_manufacturer" className="nav-links">Add Manufacturer</Link>
                       <Link to="/manufacturers" className="nav-links">Manufacturers</Link>
+                      <Link to="/categories" className="nav-link">Categories</Link>
                       <Link to="/logout" className="nav-links" onClick={handleLogout}>Logout</Link>
                     </>
                   ) : (
@@ -120,6 +122,15 @@ const App = () => {
                 <>
                   {user.admin ? (<Manufacturers />) : null }
                 </>
+              )
+            }
+          </Route>
+          <Route exact path="/categories">
+            {
+              user && (
+              <>
+                {user.admin ? (<Categories />) : null}
+              </>
               )
             }
           </Route>

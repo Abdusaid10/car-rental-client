@@ -1,36 +1,26 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router';
-import Button from 'react-bootstrap/Button';
+import { Button, Row, Col } from 'react-bootstrap';
 
-const Manufacturer = ({ manufacturer, removeManufacturer }) => {
-  const history = useHistory();
-  const displayManufacturer = id => history.push(`/manufacturers/${id}`);
-  const loggedIn = useSelector(store => store.authReducer.loggedIn);
-  const user = useSelector(store => store.authReducer.user);
-
-  return (
-    <div className="manufacturer">
-      <div className="manufacturer-info">
-        <div id="maker-logo">
-          <img className="logo" src={manufacturer.logo_url} alt={`${manufacturer.manufacturer}`} />
-          <span>
-            {manufacturer.manufacturer}
-          </span>
-        </div>
+const Manufacturer = ({ manufacturer, removeManufacturer }) => (
+  <Row className="manufacturer">
+    <Col sm="6" className="manufacturer-info">
+      <div id="maker-logo">
+        <img className="logo" src={manufacturer.logo_url} alt={`${manufacturer.manufacturer}`} />
+        <span>
+          {manufacturer.manufacturer}
+        </span>
       </div>
-      <Button
-        onClick={() => displayManufacturer(manufacturer.id)}
-        onKeyDown={() => displayManufacturer(manufacturer.id)}
-      >
-        See Deatils
+    </Col>
+    <Col sm="5">
+      <Button variant="info" className="p-1 m-1">
+        Edit
       </Button>
-      <Button onClick={() => removeManufacturer(manufacturer.id)} variant="danger">Remove</Button>
-    </div>
-  );
-};
+      <Button className="p-1 m-1" onClick={() => removeManufacturer(manufacturer.id)} variant="danger">Remove</Button>
+    </Col>
+  </Row>
+);
 
 Manufacturer.propTypes = {
   manufacturer: PropTypes.instanceOf(Object).isRequired,

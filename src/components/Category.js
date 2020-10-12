@@ -1,33 +1,23 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router';
-import Button from 'react-bootstrap/Button';
+import { Button, Row, Col } from 'react-bootstrap';
 
-const Category = ({ category, removeCategory }) => {
-  const history = useHistory();
-  const displayCategory = id => history.push(`/categories/${id}`);
-
-  return (
-    <div className="category">
-      <div className="category-info">
-        <div id="maker-logo">
-          <img className="logo" src={category.logo_url} alt={`${category.category}`} />
-          <span>
-            {category.category}
-          </span>
-        </div>
-      </div>
-      <Button
-        onClick={() => displayCategory(category.id)}
-        onKeyDown={() => displayCategory(category.id)}
-      >
+const Category = ({ category, removeCategory }) => (
+  <Row className="manufacturer">
+    <Col sm="6" className="manufacturer-info">
+      <span>
+        {category.category}
+      </span>
+    </Col>
+    <Col sm="5">
+      <Button variant="info" className="p-1 m-1">
         Edit
       </Button>
-      <Button onClick={() => removeCategory(category.id)} variant="danger">Remove</Button>
-    </div>
-  );
-};
+      <Button className="p-1 m-1" onClick={() => removeCategory(category.id)} variant="danger">Remove</Button>
+    </Col>
+  </Row>
+);
 
 Category.propTypes = {
   category: PropTypes.instanceOf(Object).isRequired,

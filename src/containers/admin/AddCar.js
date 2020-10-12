@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import { fetchCars, fetchCategories, fetchManufacturers } from '../../actions/getActions';
 import { addCarAction } from '../../actions/adminActions';
-import { addCarFailure } from '../../actions/errors';
 
 const AddCar = ({
   categories,
@@ -25,16 +24,9 @@ const AddCar = ({
     year: '',
   };
 
-  const dispatch = useDispatch();
   const [data, setData] = useState(initialState);
   const [img, setImage] = useState({ image: '' });
-  const [addCarError, setAddCarError] = useState(null);
   const history = useHistory();
-  const errors = useSelector(store => store.errors);
-
-  useEffect(() => {
-    dispatch(addCarFailure());
-  }, [errors]);
 
   useEffect(() => {
     fetchCategories();
@@ -82,7 +74,6 @@ const AddCar = ({
     formData.append('year', year);
     formData.append('image', image);
     addCarAction(formData, history);
-    setData(initialState);
     e.target.reset();
   };
 

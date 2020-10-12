@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 import Button from 'react-bootstrap/Button';
+import { Card } from 'react-bootstrap';
 
 const Car = ({ car, removeCar }) => {
   const history = useHistory();
@@ -11,9 +12,11 @@ const Car = ({ car, removeCar }) => {
   const user = useSelector(store => store.authReducer.user);
 
   return (
-    <div className="car-listing-container">
-      <img className="car-listing-img" src={car.image_url} alt={`${car.model}`} />
-      <div className="car-listing">
+    <Card className="car-listing-container">
+      {/* className="car-listing-img" */}
+      <Card.Img variant="top" src={car.image_url} alt={`${car.model}`} />
+      {/* className="car-listing" */}
+      <Card.Body>
         <div className="car-listing-info">
           <div id="maker-logo">
             <img className="logo" src={car.manufacturer.logo_url} alt={`${car.manufacturer.manufacturer}`} />
@@ -40,15 +43,16 @@ const Car = ({ car, removeCar }) => {
         <Button
           onClick={() => displayCar(car.id)}
           onKeyDown={() => displayCar(car.id)}
+          className="p-1 m-1"
         >
           See Deatils
         </Button>
         {
           user
-            && user.admin ? (<Button variant="secondary" onClick={() => removeCar(car.id)}>Remove</Button>) : null
+            && user.admin ? (<Button variant="secondary" onClick={() => removeCar(car.id)} className="p-1 m-1">Remove</Button>) : null
         }
-      </div>
-    </div>
+      </Card.Body>
+    </Card>
   );
 };
 

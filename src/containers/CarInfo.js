@@ -79,7 +79,6 @@ const CarInfo = ({ car }) => {
       }
       if (isValidDate(start_date, end_date)) {
         // setValidDate(true);
-        console.log('booking', booking);
         bookCar(booking)(dispatch);
         setValidated(true);
       }

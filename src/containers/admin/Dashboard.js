@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Car from '../components/Car';
+import Car from '../../components/Car';
 import { fetchCars, fetchCategories, fetchManufacturers } from '../../actions/getActions';
 import CategoriesFilter from '../../components/CategoriesFilter';
-import ManufacturersList from './ManufacturersList';
+import ManufacturersFilter from '../../components/ManufacturersFilter';
 
 const Dashboard = ({
-    cars, fetchCars, categories, fetchCategories, manufacturers, fetchManufacturers,
+  cars, fetchCars, categories, fetchCategories, manufacturers, fetchManufacturers,
 }) => {
   useEffect(() => {
     fetchCars();
@@ -22,8 +22,8 @@ const Dashboard = ({
     <div className="cars-list-container" key="carList">
       <div className="filters">
         <CategoriesFilter key="categories" categories={categories} />
-        <ManufacturersList key="manufacturers" manufacturers={manufacturers} />
-      </div>  
+        <ManufacturersFilter key="manufacturers" manufacturers={manufacturers} />
+      </div>
       <div className="cars-wrapper" key="carsWrapper">
         { isCars
           ? cars.map(car => (
@@ -36,7 +36,7 @@ const Dashboard = ({
       </div>
     </div>
   );
-}
+};
 
 const mapstateToProps = state => ({
   cars: state.carsList.cars,
@@ -50,7 +50,7 @@ const mapDispatchToProps = dispatch => ({
   fetchManufacturers: () => dispatch(fetchManufacturers()),
 });
 
-CarsList.propTypes = {
+Dashboard.propTypes = {
   cars: PropTypes.arrayOf(
     PropTypes.instanceOf(Object),
   ).isRequired,
