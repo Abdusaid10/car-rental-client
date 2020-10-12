@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ManufacturersList = ({ manufacturers }) => (
+const ManufacturersFilter = ({ manufacturers }) => (
   <select name="manufacturer" id="manufacturers">
     <option value="Manufacturer" selected disabled>Manufacturer</option>
     {
@@ -14,7 +14,7 @@ const ManufacturersList = ({ manufacturers }) => (
   </select>
 );
 
-ManufacturersList.propTypes = {
+ManufacturersFilter.propTypes = {
   manufacturers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -23,4 +23,4 @@ ManufacturersList.propTypes = {
   ).isRequired,
 };
 
-export default ManufacturersList;
+export default ManufacturersFilter;

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Car from '../components/Car';
 import { fetchCars, fetchCategories, fetchManufacturers } from '../actions/getActions';
-import CategoriesList from './CategoriesList';
-import ManufacturersList from './ManufacturersList';
+import CategoriesFilter from '../components/CategoriesFilter';
+import ManufacturersFilter from '../components/ManufacturersFilter';
 
 const CarsList = ({
   cars, fetchCars, categories, fetchCategories, manufacturers, fetchManufacturers,
@@ -21,8 +21,8 @@ const CarsList = ({
   return (
     <div className="cars-list-container" key="carList">
       <div className="filters">
-        <CategoriesList key="categories" categories={categories} />
-        <ManufacturersList key="manufacturers" manufacturers={manufacturers} />
+        <CategoriesFilter key="categories" categories={categories} />
+        <ManufacturersFilter key="manufacturers" manufacturers={manufacturers} />
       </div>
       <div className="cars-wrapper" key="carsWrapper">
         { isCars
@@ -40,8 +40,8 @@ const CarsList = ({
 
 const mapstateToProps = state => ({
   cars: state.carsList.cars,
-  categories: state.categoriesList.categories,
-  manufacturers: state.manufacturersList.manufacturers,
+  categories: state.categoriesFilter.categories,
+  manufacturers: state.manufacturersFilter.manufacturers,
 });
 
 const mapDispatchToProps = dispatch => ({

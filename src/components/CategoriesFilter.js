@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CategoriesList = ({ categories }) => (
+const CategoriesFilter = ({ categories }) => (
   <select name="category" id="categories">
     <option value="Category" selected disabled>Category</option>
     {
@@ -14,7 +14,7 @@ const CategoriesList = ({ categories }) => (
   </select>
 );
 
-CategoriesList.propTypes = {
+CategoriesFilter.propTypes = {
   categories: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -23,4 +23,4 @@ CategoriesList.propTypes = {
   ).isRequired,
 };
 
-export default CategoriesList;
+export default CategoriesFilter;

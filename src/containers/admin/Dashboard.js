@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Car from '../components/Car';
 import { fetchCars, fetchCategories, fetchManufacturers } from '../../actions/getActions';
-import CategoriesList from '../CategoriesList';
+import CategoriesFilter from '../../components/CategoriesFilter';
 import ManufacturersList from './ManufacturersList';
 
 const Dashboard = ({
@@ -21,7 +21,7 @@ const Dashboard = ({
   return (
     <div className="cars-list-container" key="carList">
       <div className="filters">
-        <CategoriesList key="categories" categories={categories} />
+        <CategoriesFilter key="categories" categories={categories} />
         <ManufacturersList key="manufacturers" manufacturers={manufacturers} />
       </div>  
       <div className="cars-wrapper" key="carsWrapper">
@@ -40,7 +40,7 @@ const Dashboard = ({
 
 const mapstateToProps = state => ({
   cars: state.carsList.cars,
-  categories: state.categoriesList.categories,
+  categories: state.categoriesFilter.categories,
   manufacturers: state.manufacturersList.manufacturers,
 });
 
