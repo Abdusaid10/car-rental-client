@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 import Button from 'react-bootstrap/Button';
 
-const Manufacturer = ({ manufacturer }) => {
+const Manufacturer = ({ manufacturer, removeManufacturer }) => {
   const history = useHistory();
   const displayManufacturer = id => history.push(`/manufacturers/${id}`);
   const loggedIn = useSelector(store => store.authReducer.loggedIn);
@@ -27,13 +27,14 @@ const Manufacturer = ({ manufacturer }) => {
       >
         See Deatils
       </Button>
-      <Button variant="danger">Remove</Button>
+      <Button onClick={() => removeManufacturer(manufacturer.id)} variant="danger">Remove</Button>
     </div>
   );
 };
 
 Manufacturer.propTypes = {
   manufacturer: PropTypes.instanceOf(Object).isRequired,
+  removeManufacturer: PropTypes.func.isRequired,
 };
 
 export default Manufacturer;

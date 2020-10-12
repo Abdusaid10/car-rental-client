@@ -13,7 +13,7 @@ import AddCategory from '../containers/admin/AddCategory';
 import AddManufacturer from '../containers/admin/AddManufacturer';
 import CarInfo from '../containers/CarInfo';
 import BookingsList from '../containers/BookingsList';
-import Manufacturers from '../containers/Manufacturers';
+import Manufacturers from '../containers/admin/Manufacturers';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/reset.css';
 import '../styles/App.css';
@@ -118,7 +118,7 @@ const App = () => {
             {
               user && (
                 <>
-                  {user.admin ? (<Booknigs />) : null }
+                  {user.admin ? (<Manufacturers />) : null }
                 </>
               )
             }

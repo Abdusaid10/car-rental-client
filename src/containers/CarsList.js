@@ -40,8 +40,8 @@ const CarsList = ({
 
 const mapstateToProps = state => ({
   cars: state.carsList.cars,
-  categories: state.categoriesFilter.categories,
-  manufacturers: state.manufacturersFilter.manufacturers,
+  categories: state.categoriesList.categories,
+  manufacturers: state.manufacturersList.manufacturers,
 });
 
 const mapDispatchToProps = dispatch => ({
