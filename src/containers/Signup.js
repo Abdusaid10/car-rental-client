@@ -56,7 +56,6 @@ const Signup = () => {
 
     signup({ user }, history)(dispatch);
 
-    setData(initialState);
     e.target.reset();
   };
 

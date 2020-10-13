@@ -136,7 +136,7 @@ const AddCar = ({
         </select>
         <label className="form-item" htmlFor="images">
           <span className="form-item">Add image</span>
-          <input type="file" name="image" accept="image/*" multiple onChange={onImageChange} required />
+          <input type="file" name="image" accept="image/*" multiple onChange={onImageChange} />
         </label>
         <textarea name="description" rows="4" cols="30" value={description} placeholder="Enter text here..." onChange={handleChange} />
         <input className="btn btn-primary form-item" type="submit" value="Add Car" />

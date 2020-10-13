@@ -2,7 +2,6 @@ import axios from 'axios';
 import {
   LOGIN_SUCCESS,
   SIGNUP_SUCCESS,
-  SUCCESS,
   LOGOUT,
   BOOK_CAR_SUCCESS,
   BASE_URL,
@@ -12,11 +11,6 @@ import { bookCarFailure, loginFailure, singupFailure } from './errors';
 const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
   payload: user,
-});
-
-const success = message => ({
-  type: SUCCESS,
-  payload: message,
 });
 
 const logoutAction = () => ({
@@ -49,8 +43,6 @@ export const signup = (user, history) => dispatch => {
     .then(response => {
       if (response.status === 201) {
         dispatch(signupSuccess(response.data));
-        dispatch(success('Signed up successfully'));
-
         history.push('/');
       }
     })

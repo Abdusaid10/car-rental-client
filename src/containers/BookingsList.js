@@ -8,7 +8,7 @@ const BookingsList = ({ bookings, fetchBookings }) => {
   const user = useSelector(store => store.authReducer.user);
   useEffect(() => {
     fetchBookings(user.user_id);
-  }, [fetchBookings]);
+  }, [fetchBookings, user]);
   return (
     <div>
       {

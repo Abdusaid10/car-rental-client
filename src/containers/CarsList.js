@@ -5,9 +5,10 @@ import Car from '../components/Car';
 import { fetchCars, fetchCategories, fetchManufacturers } from '../actions/getActions';
 import CategoriesFilter from '../components/CategoriesFilter';
 import ManufacturersFilter from '../components/ManufacturersFilter';
+import { removeCar } from '../actions/adminActions';
 
 const CarsList = ({
-  cars, fetchCars, categories, fetchCategories, manufacturers, fetchManufacturers,
+  cars, fetchCars, categories, fetchCategories, manufacturers, fetchManufacturers, removeCar,
 }) => {
   useEffect(() => {
     fetchCars();
@@ -27,7 +28,7 @@ const CarsList = ({
       <div className="cars-wrapper" key="carsWrapper">
         { isCars
           ? cars.map(car => (
-            <Car key={car.id} car={car} />
+            <Car key={car.id} car={car} removeCar={removeCar} />
           )) : (
             <div className="cars-wrapper">
               <span>No cars</span>
@@ -48,6 +49,7 @@ const mapDispatchToProps = dispatch => ({
   fetchCars: () => dispatch(fetchCars()),
   fetchCategories: () => dispatch(fetchCategories()),
   fetchManufacturers: () => dispatch(fetchManufacturers()),
+  removeCar: car => dispatch(removeCar(car)),
 });
 
 CarsList.propTypes = {
@@ -69,6 +71,7 @@ CarsList.propTypes = {
   ).isRequired,
   fetchCategories: PropTypes.func.isRequired,
   fetchManufacturers: PropTypes.func.isRequired,
+  removeCar: PropTypes.func.isRequired,
 };
 
 export default connect(mapstateToProps, mapDispatchToProps)(CarsList);
