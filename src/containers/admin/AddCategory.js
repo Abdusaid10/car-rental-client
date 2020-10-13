@@ -18,8 +18,8 @@ const AddCategory = ({ addCat }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
-    addCat(category, history);
+    const token = localStorage.getItem('token');
+    addCat(category, history, token);
     e.target.reset();
   };
 
@@ -34,7 +34,7 @@ const AddCategory = ({ addCat }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addCat: (category, history) => dispatch(addCat(category, history)),
+  addCat: (category, history, token) => dispatch(addCat(category, history, token)),
 });
 
 AddCategory.propTypes = {

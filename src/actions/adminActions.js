@@ -23,8 +23,8 @@ const addCarSuccess = car => ({
   payload: car,
 });
 
-export const addCarAction = (car, history) => dispatch => {
-  const token = localStorage.getItem('token');
+export const addCarAction = (car, history, token) => dispatch => {
+  // const token = localStorage.getItem('token');
   axios.post(`${BASE_URL}/cars`, car,
     {
       headers: {
@@ -45,8 +45,8 @@ const removeCarSuccess = () => ({
   type: REMOVE_CAR_SUCCESS,
 });
 
-export const removeCar = carId => dispatch => {
-  const token = localStorage.getItem('token');
+export const removeCar = (carId, token) => dispatch => {
+  // const token = localStorage.getItem('token');
   axios.delete(`${BASE_URL}/cars/${carId}`,
     {
       headers: {
@@ -65,8 +65,8 @@ const addCategorySuccess = data => ({
   payload: data,
 });
 
-export const addCategoryAction = (category, history) => dispatch => {
-  const token = localStorage.getItem('token');
+export const addCategoryAction = (category, history, token) => dispatch => {
+  // const token = localStorage.getItem('token');
   axios.post(`${BASE_URL}/categories`, category,
     {
       headers: {
@@ -84,8 +84,8 @@ const removeCategorySuccess = () => ({
   type: REMOVE_CATEGORY_SUCCESS,
 });
 
-export const removeCategory = categoryId => dispatch => {
-  const token = localStorage.getItem('token');
+export const removeCategory = (categoryId, token) => dispatch => {
+  // const token = localStorage.getItem('token');
   axios.delete(`${BASE_URL}/categories/${categoryId}`,
     {
       headers: {
@@ -104,8 +104,8 @@ const addManufacturerSuccess = manufacturer => ({
   payload: manufacturer,
 });
 
-export const addManufacturerAction = (manufacturer, history) => dispatch => {
-  const token = localStorage.getItem('token');
+export const addManufacturerAction = (manufacturer, history, token) => dispatch => {
+  // const token = localStorage.getItem('token');
   dispatch(addManufacturerSuccess());
   axios.post(`${BASE_URL}/manufacturers`, manufacturer,
     {
@@ -124,8 +124,8 @@ const removeManufacturerSuccess = () => ({
   type: REMOVE_MANUFACTURER_SUCCESS,
 });
 
-export const removeManufacturer = makerId => dispatch => {
-  const token = localStorage.getItem('token');
+export const removeManufacturer = (makerId, token) => dispatch => {
+  // const token = localStorage.getItem('token');
   axios.delete(`${BASE_URL}/manufacturers/${makerId}`,
     {
       headers: {
