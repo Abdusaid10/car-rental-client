@@ -63,6 +63,7 @@ const AddCar = ({
 
   const handleSubmit = e => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
     const formData = new FormData();
     formData.append('manufacturer_id', manufacturer_id);
     formData.append('category_id', category_id);
@@ -73,7 +74,7 @@ const AddCar = ({
     formData.append('description', description);
     formData.append('year', year);
     formData.append('image', image);
-    addCarAction(formData, history);
+    addCarAction(formData, history, token);
     e.target.reset();
   };
 
@@ -151,7 +152,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addCarAction: (car, history) => dispatch(addCarAction(car, history)),
+  addCarAction: (car, history, token) => dispatch(addCarAction(car, history, token)),
   fetchCars: () => dispatch(fetchCars()),
   fetchCategories: () => dispatch(fetchCategories()),
   fetchManufacturers: () => dispatch(fetchManufacturers()),

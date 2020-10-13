@@ -14,7 +14,7 @@ const Category = ({ category, removeCategory }) => (
       <Button variant="info" className="p-1 m-1">
         Edit
       </Button>
-      <Button className="p-1 m-1" onClick={() => removeCategory(category.id)} variant="danger">Remove</Button>
+      <Button className="p-1 m-1" onClick={() => removeCategory(category.id, localStorage.getItem('token'))} variant="danger">Remove</Button>
     </Col>
   </Row>
 );

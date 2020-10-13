@@ -44,7 +44,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchCategories: () => dispatch(fetchCategories()),
-  removeCategory: category => dispatch(removeCategory(category)),
+  removeCategory: (category, token) => dispatch(removeCategory(category, token)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Categories);

@@ -44,7 +44,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchManufacturers: () => dispatch(fetchManufacturers()),
-  removeManufacturer: manufacturer => dispatch(removeManufacturer(manufacturer)),
+  removeManufacturer: (manufacturer, token) => dispatch(removeManufacturer(manufacturer, token)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Manufacturers);

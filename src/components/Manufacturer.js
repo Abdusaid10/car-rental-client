@@ -17,7 +17,7 @@ const Manufacturer = ({ manufacturer, removeManufacturer }) => (
       <Button variant="info" className="p-1 m-1">
         Edit
       </Button>
-      <Button className="p-1 m-1" onClick={() => removeManufacturer(manufacturer.id)} variant="danger">Remove</Button>
+      <Button className="p-1 m-1" onClick={() => removeManufacturer(manufacturer.id, localStorage.getItem('token'))} variant="danger">Remove</Button>
     </Col>
   </Row>
 );

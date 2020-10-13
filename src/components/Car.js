@@ -49,7 +49,7 @@ const Car = ({ car, removeCar }) => {
         </Button>
         {
           user
-            && user.admin ? (<Button variant="secondary" onClick={() => removeCar(car.id)} className="p-1 m-1">Remove</Button>) : null
+            && user.admin ? (<Button variant="secondary" onClick={() => removeCar(car.id, localStorage.getItem('token'))} className="p-1 m-1">Remove</Button>) : null
         }
       </Card.Body>
     </Card>

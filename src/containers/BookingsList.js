@@ -7,7 +7,7 @@ import Booking from '../components/Booking';
 const BookingsList = ({ bookings, fetchBookings }) => {
   const user = useSelector(store => store.authReducer.user);
   useEffect(() => {
-    fetchBookings(user.user_id);
+    fetchBookings(user.user_id, localStorage.getItem('token'));
   }, [fetchBookings, user]);
   return (
     <div>
@@ -33,7 +33,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchBookings: userId => dispatch(fetchBookings(userId)),
+  fetchBookings: (userId, token) => dispatch(fetchBookings(userId, token)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookingsList);

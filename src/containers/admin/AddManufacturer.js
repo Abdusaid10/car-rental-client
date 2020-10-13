@@ -40,13 +40,13 @@ const AddManufacturer = ({ addMaker }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
+    const token = localStorage.getItem('token');
     const formData = new FormData();
     formData.append('manufacturer', manufacturer);
     formData.append('about', about);
     formData.append('image', image);
     formData.append('logo', logo);
-    addMaker(formData, history);
+    addMaker(formData, history, token);
     e.target.reset();
   };
 
@@ -70,7 +70,7 @@ const AddManufacturer = ({ addMaker }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addMaker: (maker, history) => dispatch(addMaker(maker, history)),
+  addMaker: (maker, history, token) => dispatch(addMaker(maker, history, token)),
 });
 
 AddManufacturer.propTypes = {

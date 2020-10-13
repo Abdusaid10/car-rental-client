@@ -56,8 +56,8 @@ const bookCarSuccess = data => ({
   payload: data,
 });
 
-export const bookCar = booking => dispatch => {
-  const token = localStorage.getItem('token');
+export const bookCar = (booking, token) => dispatch => {
+  // const token = localStorage.getItem('token');
   axios.post(`${BASE_URL}/bookings`, booking,
     {
       headers: {

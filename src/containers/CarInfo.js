@@ -79,7 +79,7 @@ const CarInfo = ({ car }) => {
       }
       if (isValidDate(start_date, end_date)) {
         // setValidDate(true);
-        bookCar(booking)(dispatch);
+        bookCar(booking, localStorage.getItem('token'))(dispatch);
         setValidated(true);
       }
     } else {
