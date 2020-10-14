@@ -57,6 +57,6 @@ export const FETCH_BOOKINGS_FAILURE = 'FETCH_BOOKINGS_FAILURE';
 export const BOOK_CAR_SUCCESS = 'BOOK_CAR_SUCCESS';
 export const BOOK_CAR_FAILURE = 'BOOK_CAR_FAILURE';
 
-export const BASE_URL = 'https://car-booking-api-app.herokuapp.com';
+export const BASE_URL = 'http://localhost:3000';
 // https://car-booking-api-app.herokuapp.com
 // http://localhost:3000
