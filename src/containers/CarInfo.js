@@ -13,7 +13,7 @@ import { bookCar } from '../actions/userActions';
 import { isValidDate } from '../helpers/carInfoHelper';
 import '../styles/carInfo.css';
 
-const CarInfo = ({ car, loading }) => {
+const CarInfo = ({ car }) => {
   const { id } = useParams();
   const token = useSelector(store => store.authReducer.token);
   const loggedIn = useSelector(store => store.authReducer.loggedIn);
@@ -72,14 +72,14 @@ const CarInfo = ({ car, loading }) => {
       end_date,
     };
     const form = e.currentTarget;
-    console.log('booking', booking);
+
     if (loggedIn) {
       if (form.checkValidity() === false) {
         e.stopPropagation();
       }
       if (isValidDate(start_date, end_date)) {
         setValidDate(true);
-        bookCar(booking, token)(dispatch);
+        bookCar(booking, history, token)(dispatch);
         setValidated(true);
       } else {
         setValidDate(false);
@@ -205,12 +205,10 @@ const CarInfo = ({ car, loading }) => {
 
 const mapStateToProps = state => ({
   car: state.carInfo.car,
-  loading: state.carInfo.loading,
 });
 
 CarInfo.propTypes = {
   car: PropTypes.instanceOf(Object).isRequired,
-  loading: PropTypes.bool.isRequired,
 };
 
 export default withRouter(connect(mapStateToProps)(CarInfo));

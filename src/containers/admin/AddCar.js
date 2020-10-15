@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { fetchCars, fetchCategories, fetchManufacturers } from '../../actions/getActions';
 import { addCarAction } from '../../actions/adminActions';
@@ -27,6 +27,7 @@ const AddCar = ({
   const [data, setData] = useState(initialState);
   const [img, setImage] = useState({ image: '' });
   const history = useHistory();
+  const token = useSelector(store => store.authReducer.token);
 
   useEffect(() => {
     fetchCategories();
@@ -63,7 +64,6 @@ const AddCar = ({
 
   const handleSubmit = e => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
     const formData = new FormData();
     formData.append('manufacturer_id', manufacturer_id);
     formData.append('category_id', category_id);

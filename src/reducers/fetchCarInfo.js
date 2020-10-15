@@ -5,6 +5,7 @@ import {
 
 const initialState = {
   car: [],
+  loading: false,
 };
 
 const fetchCarInfoReducer = (state = initialState, action) => {
@@ -12,11 +13,13 @@ const fetchCarInfoReducer = (state = initialState, action) => {
     case FETCH_CAR_INFO_REQUEST:
       return {
         ...state,
+        loading: true,
       };
     case FETCH_CAR_INFO_SUCCESS:
       return {
         ...state,
         car: action.payload,
+        loading: false,
       };
     default:
       return state;

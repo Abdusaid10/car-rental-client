@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { addManufacturerAction as addMaker } from '../../actions/adminActions';
 
@@ -11,6 +11,7 @@ const AddManufacturer = ({ addMaker }) => {
   };
   const history = useHistory();
   const [data, setData] = useState(initialState);
+  const token = useSelector(store => store.authReducer.token);
   const [img, setImage] = useState({
     image: '',
     logo: '',
@@ -40,7 +41,7 @@ const AddManufacturer = ({ addMaker }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
+
     const formData = new FormData();
     formData.append('manufacturer', manufacturer);
     formData.append('about', about);

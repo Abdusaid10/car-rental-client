@@ -24,8 +24,6 @@ const addCarSuccess = car => ({
 });
 
 export const addCarAction = (car, history, token) => dispatch => {
-  // const token = localStorage.getItem('token');
-  console.log('aadd car', token);
   axios.post(`${BASE_URL}/cars`, car,
     {
       headers: {
@@ -47,8 +45,6 @@ const removeCarSuccess = () => ({
 });
 
 export const removeCar = (carId, token) => dispatch => {
-  // const token = localStorage.getItem('token');
-  console.log('remove', token);
   axios.delete(`${BASE_URL}/cars/${carId}`,
     {
       headers: {
@@ -68,8 +64,6 @@ const addCategorySuccess = data => ({
 });
 
 export const addCategoryAction = (category, history, token) => dispatch => {
-  // const token = localStorage.getItem('token');
-  console.log('add cat', token);
   axios.post(`${BASE_URL}/categories`, category,
     {
       headers: {
@@ -88,8 +82,6 @@ const removeCategorySuccess = () => ({
 });
 
 export const removeCategory = (categoryId, token) => dispatch => {
-  // const token = localStorage.getItem('token');
-  console.log('remove cat', token);
   axios.delete(`${BASE_URL}/categories/${categoryId}`,
     {
       headers: {
@@ -109,7 +101,6 @@ const addManufacturerSuccess = manufacturer => ({
 });
 
 export const addManufacturerAction = (manufacturer, history, token) => dispatch => {
-  // const token = localStorage.getItem('token');
   dispatch(addManufacturerSuccess());
   axios.post(`${BASE_URL}/manufacturers`, manufacturer,
     {
@@ -129,8 +120,6 @@ const removeManufacturerSuccess = () => ({
 });
 
 export const removeManufacturer = (makerId, token) => dispatch => {
-  // const token = localStorage.getItem('token');
-  console.log('remove man', token);
   axios.delete(`${BASE_URL}/manufacturers/${makerId}`,
     {
       headers: {

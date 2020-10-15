@@ -6,8 +6,9 @@ import Booking from '../components/Booking';
 
 const BookingsList = ({ bookings, fetchBookings }) => {
   const user = useSelector(store => store.authReducer.user);
+  const token = useSelector(store => store.authReducer.token);
   useEffect(() => {
-    fetchBookings(user.user_id, localStorage.getItem('token'));
+    fetchBookings(user.user_id, token);
   }, [fetchBookings, user]);
   return (
     <div>

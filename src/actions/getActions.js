@@ -108,7 +108,6 @@ export const fetchBookingsSuccess = data => ({
 });
 
 export const fetchBookings = (userId, token) => dispatch => {
-  // const token = localStorage.getItem('token');
   dispatch(fetchBookingsRequest());
   axios.get(`${BASE_URL}/users/${userId}`,
     {

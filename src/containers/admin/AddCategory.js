@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { addCategoryAction as addCat } from '../../actions/adminActions';
 
@@ -10,6 +10,7 @@ const AddCategory = ({ addCat }) => {
   };
   const history = useHistory();
   const [category, setCategory] = useState(initialState);
+  const token = useSelector(store => store.authReducer.token);
   const { title } = category;
 
   const handleChange = e => {
@@ -18,7 +19,7 @@ const AddCategory = ({ addCat }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
+
     addCat(category, history, token);
     e.target.reset();
   };
