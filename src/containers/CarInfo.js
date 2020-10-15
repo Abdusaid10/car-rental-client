@@ -13,14 +13,15 @@ import { bookCar } from '../actions/userActions';
 import { isValidDate } from '../helpers/carInfoHelper';
 import '../styles/carInfo.css';
 
-const CarInfo = ({ car }) => {
+const CarInfo = ({ car, loading }) => {
   const { id } = useParams();
+  const token = useSelector(store => store.authReducer.token);
   const loggedIn = useSelector(store => store.authReducer.loggedIn);
   const user = useSelector(store => store.authReducer.user);
   const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
   const history = useHistory();
-  // const [validDate, setValidDate] = useState(false);
+  const [validDate, setValidDate] = useState(true);
   const [validated, setValidated] = useState(false);
   const [bookingError, setBookingError] = useState(null);
 
@@ -31,25 +32,24 @@ const CarInfo = ({ car }) => {
   month = month < 10 ? `0${month}` : month;
   const year = date.getFullYear();
   const today = `${year}-${month}-${day}`;
-
+  const userId = loggedIn ? user.user_id : null;
+  const carId = parseInt(id, 10);
   const initialState = {
-    user_id: loggedIn ? user.user_id : null,
-    car_id: car.id,
+    user_id: userId,
+    car_id: carId,
     start_date: today,
     end_date: '',
   };
 
   const [bookingData, setBookingData] = useState(initialState);
   const {
-    user_id,
-    car_id,
     start_date,
     end_date,
   } = bookingData;
 
   useEffect(() => {
-    fetchCarInfo(parseInt(id, 10))(dispatch);
-  }, [id, dispatch]);
+    fetchCarInfo(carId)(dispatch);
+  }, [carId, dispatch]);
 
   useEffect(() => {
     setBookingError(errors.bookingError);
@@ -66,21 +66,23 @@ const CarInfo = ({ car }) => {
   const handleBookingSubmit = e => {
     e.preventDefault();
     const booking = {
-      user_id,
-      car_id,
+      user_id: userId,
+      car_id: carId,
       start_date,
       end_date,
     };
     const form = e.currentTarget;
-
+    console.log('booking', booking);
     if (loggedIn) {
       if (form.checkValidity() === false) {
         e.stopPropagation();
       }
       if (isValidDate(start_date, end_date)) {
-        // setValidDate(true);
-        bookCar(booking, localStorage.getItem('token'))(dispatch);
+        setValidDate(true);
+        bookCar(booking, token)(dispatch);
         setValidated(true);
+      } else {
+        setValidDate(false);
       }
     } else {
       history.push('/login');
@@ -148,13 +150,13 @@ const CarInfo = ({ car }) => {
                     required
                     type="hidden"
                     name="user_id"
-                    value={user_id}
+                    value={userId}
                   />
                   <Form.Control
                     required
                     type="hidden"
                     name="car_id"
-                    value={car_id}
+                    value={carId}
                   />
                   <Form.Group as={Row} controlId="validationCustom01">
                     <Form.Label as={Col} md="4">Start Date</Form.Label>
@@ -188,6 +190,9 @@ const CarInfo = ({ car }) => {
               {
                 bookingError && (<Alert variant="danger">{bookingError}</Alert>)
               }
+              {
+                validDate ? null : (<Alert variant="danger">Invalid date</Alert>)
+              }
             </div>
           </div>
         ) : (
@@ -200,10 +205,12 @@ const CarInfo = ({ car }) => {
 
 const mapStateToProps = state => ({
   car: state.carInfo.car,
+  loading: state.carInfo.loading,
 });
 
 CarInfo.propTypes = {
   car: PropTypes.instanceOf(Object).isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default withRouter(connect(mapStateToProps)(CarInfo));
