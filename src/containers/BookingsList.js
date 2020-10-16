@@ -9,7 +9,7 @@ const BookingsList = ({ bookings, fetchBookings }) => {
   const token = useSelector(store => store.authReducer.token);
   useEffect(() => {
     fetchBookings(user.user_id, token);
-  }, [fetchBookings, user]);
+  }, [fetchBookings, user, token]);
   return (
     <div>
       {
