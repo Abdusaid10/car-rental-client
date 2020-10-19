@@ -34,7 +34,7 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <div className="nav-links-container">
+        <div className="navbar nav-links-container">
           <Link to="/" className="nav-links">Home</Link>
           {
             loggedIn ? (

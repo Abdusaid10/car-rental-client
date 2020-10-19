@@ -105,3 +105,22 @@
   width: 50%;
   border-radius: 10px 10px;
 }
+
+@media only screen and (max-width: 414px) {
+  .car-details-table {
+    font-size: 12px;
+  }
+
+  .entry-names,
+  .entry-values {
+    padding: 5px;
+  }
+
+  .entry-names {
+    padding-right: 4px;
+  }
+  
+  .entry-values {
+    padding-left: 4px;
+  }
+}
