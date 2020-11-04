@@ -17,7 +17,7 @@ It is a single-page application, to book a car. This repository contains only fr
 ## Live version
 
 A live version is hosted on Netlify.
-- [**CAR-RENTAL-CLIENT**](https://5f7c0f583e2aa9f3f205a57b--car-rental-client.netlify.app/)
+- [**CAR-RENTAL-CLIENT**](https://car-rental-client.netlify.app/)
 
 ## Run Locally
 To get a local copy up and running follow these simple example steps.
